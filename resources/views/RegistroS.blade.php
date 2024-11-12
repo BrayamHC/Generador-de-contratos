@@ -60,6 +60,20 @@
         .sidebar button:hover {
             background: #0056b3; /* Color al pasar el ratón sobre el botón */
         }
+        .sidebar form #logout-button {
+        width: 80%;
+        margin-top: 10px;
+        padding: 10px;
+        background: #dc3545; /* Rojo para el botón de cerrar sesión */
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    .sidebar form #logout-button:hover {
+        background: #c82333; /* Rojo oscuro al pasar el ratón */
+    }
 
         /* Contenido principal */
         .main-content {

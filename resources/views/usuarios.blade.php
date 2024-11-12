@@ -46,6 +46,19 @@
         .sidebar button:hover {
             background: #0056b3; /* Color al pasar el ratón sobre el botón */
         }
+        .sidebar form button {
+            width: 80%;
+            margin-top: 10px 0;
+            padding: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .sidebar form button:hover {
+            background: #c82333;
+        }
         .main-content {
             flex: 1;
             padding: 20px;
@@ -158,10 +171,10 @@
         <!-- Contenido principal -->
         <main class="main-content">
             <h1>Lista de Usuarios</h1>
-
-            <!-- Botón para agregar usuario -->
-            <button class="add-button" onclick="location.href='/Registro/Usuario'">Agregar</button> <!-- Redirige a la vista de registro -->
-
+            <!-- Mostrar botón de agregar solo si el usuario es superusuario y está autenticado -->
+            @if($usuario && $usuario->superusuario)
+            <button class="add-button" onclick="location.href='/Registro/Usuario'">Agregar</button>
+            @endif
             <div class="user-card">
                 <table>
                     <thead>
@@ -182,17 +195,20 @@
                                 <td>{{ $usuario->correo }}</td>
                                 <td>
                                     <div class="acciones">
-                                        <a href="{{ route('usuarios.editar', ['id' => $usuario->id, 'idsello' => substr(hash('sha256', $usuario->id . config('constants.URL_SALT')), -8)]) }}">
-                                            <button class="edit-button">Editar</button>
-                                        </a>
-                                        <form action="{{ route('usuarios.eliminar', ['id' => $usuario->id, 'idsello' => substr(hash('sha256', $usuario->id . config('constants.URL_SALT')), -8)]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este candidato?')">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" class="delete-button">Eliminar</button>
-                                      </form>
+                                        <!-- Mostrar los botones de acción solo si el usuario es superusuario y está autenticado -->
+                                        @if(auth()->user()->superusuario)
+                                            <a href="{{ route('usuarios.editar', ['id' => $usuario->id, 'idsello' => substr(hash('sha256', $usuario->id . config('constants.URL_SALT')), -8)]) }}">
+                                                <button class="edit-button">Editar</button>
+                                            </a>
+                                            <form action="{{ route('usuarios.eliminar', ['id' => $usuario->id, 'idsello' => substr(hash('sha256', $usuario->id . config('constants.URL_SALT')), -8)]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este usuario?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="delete-button">Eliminar</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
-                           </tr>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

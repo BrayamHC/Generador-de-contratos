@@ -46,6 +46,19 @@
         .sidebar button:hover {
             background: #0056b3;
         }
+        .sidebar form button {
+            width: 80%;
+            margin-top: 10px 0;
+            padding: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .sidebar form button:hover {
+            background: #c82333;
+        }
         .main-content {
             flex: 1;
             display: flex;
@@ -102,7 +115,10 @@
                 <button type="button" onclick="location.href='/usuarios'">Usuarios</button>
                 <button type="button" onclick="location.href='/candidatos'">Candidatos</button>
             </div>
-            <button type="button" onclick="location.href='/logout'">Cerrar sesión</button>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" id="logout-button">Cerrar sesión</button>
+            </form>
         </aside>
 
         <!-- Contenido principal -->

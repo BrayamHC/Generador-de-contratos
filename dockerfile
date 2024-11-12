@@ -1,19 +1,19 @@
 # Usar la imagen base de PHP con Apache
 FROM php:8.3-apache
 
-# Instalar extensiones requeridas para Laravel y Imagick
+# Instalar las dependencias necesarias y las extensiones de PHP
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
-    libmagickwand-dev \  
+    libmagickwand-dev \
     zip \
     libzip-dev \
     unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql gd zip \
-    && pecl install imagick \  
-    && docker-php-ext-enable imagick  
+    && docker-php-ext-install pdo pdo_mysql gd zip bcmath sockets \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -36,4 +36,3 @@ EXPOSE 80
 
 # Ejecutar Apache en modo foreground
 CMD ["apache2-foreground"]
-    

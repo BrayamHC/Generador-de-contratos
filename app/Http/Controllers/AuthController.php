@@ -29,7 +29,7 @@ public function login(Request $request)
         'password' => 'required',
     ]);
 
-    // Intentar obtener el usuario por correo o nombre de usuario
+    // Intentar obtener el usuario por nombre de usuario
     $usuario = Usuario::where('usuario', $request->usuario)->first(); // Usa 'correo' o 'usuario' según tu preferencia
 
     if ($usuario) {

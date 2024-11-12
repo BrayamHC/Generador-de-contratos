@@ -12,7 +12,7 @@
             height: 100vh; /* Altura completa de la ventana */
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía moderna */
-            background: #FFFDD0; /* Degradado azul */
+            background: linear-gradient(135deg, #A9CCE3, #FFFDD0);
         }
         .container {
             background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco semitransparente */

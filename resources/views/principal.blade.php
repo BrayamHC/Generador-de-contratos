@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía moderna */
-            background: #FFFDD0; /* Color de fondo */
+            background: linear-gradient(135deg, #A9CCE3, #FFFDD0);
         }
         .container {
             display: flex;
@@ -45,6 +45,19 @@
         }
         .sidebar button:hover {
             background: #0056b3; /* Color al pasar el ratón sobre el botón */
+        }
+        .sidebar form button {
+            width: 80%;
+            margin-top: 10px 0;
+            padding: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .sidebar form button:hover {
+            background: #c82333;
         }
         .main-content {
             flex: 1;

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Usuario; // Asegúrate de que el nombre del modelo sea 'Usuario'
+use Illuminate\Support\Facades\Auth;
+
 
 class UsuarioController extends Controller
 {
@@ -17,6 +19,7 @@ class UsuarioController extends Controller
             'correo' => 'required|string|max:255|unique:usuarios',
             'nombre_completo' => 'required|string|max:255',
             'password' => 'required|string|confirmed',
+            'superusuario' => 'nullable|boolean',
         ]);
 
         if ($validator->fails()) {
@@ -29,6 +32,7 @@ class UsuarioController extends Controller
             'correo' => $request->correo, // Asegúrate de que el nombre del campo sea correcto
             'nombre_completo' => $request->nombre_completo, // Usa 'nombre_completo' en lugar de 'nombre'
             'password' => Hash::make($request->password), // Asegúrate de que el nombre del campo sea correcto
+            'superusuario' => $request->has('superusuario') ? 1 : 0,
         ]);
 
         return redirect()->route('usuarios.listar')->with('success', 'Usuario registrado con éxito.');
@@ -77,16 +81,16 @@ class UsuarioController extends Controller
     }
     
     public function listar()
-    {
-        // Cargar usuarios con sus relaciones de imagen de perfil y thumbnails
+    {   
+        $usuario= Auth::user();
+        // Cargar usuarios
         $usuarios = Usuario::all(); // Se obtienen todos los usuarios
 
         // Pasar los usuarios a la vista
-        return view('usuarios', compact('usuarios'));
+        return view('usuarios', compact('usuarios','usuario'));
     }
     public function eliminar(Request $request, $id)
     {
-        
         // Buscar al candidato por su ID
         $usuarios = Usuario::findOrFail($id);
         
