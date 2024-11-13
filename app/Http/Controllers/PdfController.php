@@ -12,8 +12,11 @@ class PdfController extends Controller
         if ($request->hasFile('pdf')) {
             $file = $request->file('pdf');
 
-            // Guarda el archivo en storage/app/public
-            $filePath = $file->storeAs('public', 'contrato_' . time() . '.pdf');
+            // Obtiene el nombre original del archivo
+            $originalFileName = $file->getClientOriginalName();
+
+            // Guarda el archivo en storage/app/pdfs usando el disco 'pdfs' configurado en filesystems.php
+            $filePath = $file->storeAs('pdfs', $originalFileName, 'pdfs');
 
             return response()->json([
                 'success' => true,
