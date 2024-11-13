@@ -56,3 +56,4 @@ Route::post('/candidatos/{id}/editar', [CandidatoController::class, 'actualizar'
 Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->middleware('auth')->name('candidatos.eliminar');
 //Ruta de impresion
 Route::get('/impresion/{id}', [ImpresionController::class, 'enviarImpresion'])->middleware('auth')->name('impresion.enviar');
+//
