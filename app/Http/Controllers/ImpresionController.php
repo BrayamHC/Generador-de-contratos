@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidato;
 use App\Services\RabbitMQService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ImpresionController extends Controller
 {
@@ -42,11 +43,23 @@ class ImpresionController extends Controller
                 'correo_electronico' => $candidato->correo_electronico
             ];
 
-           // Enviar el mensaje al exchange 'Contratos' con los datos del candidato
-           $this->rabbitMQService->sendMessage('contratos', $campos, '*');
+            // Enviar el mensaje al exchange 'Contratos' con los datos del candidato
+            $this->rabbitMQService->sendMessage('contratos', $campos, '*');
 
-            // Redirigir a la vista de carga si se envió correctamente
-            return view('impresion')->with(['message' => 'Solicitud de impresión en proceso...']);
+            // Consultar el estado de impresión cada 5 segundos hasta que cambie a 1
+            while (true) {
+                $status = DB::table('candidatos')->where('id', $id)->value('status_impresion');
+
+                if ($status == 1) {
+                    break;
+                }
+
+                // Esperar 5 segundos antes de la siguiente consulta
+                sleep(5);
+            }
+
+            // Redirigir a la vista de carga si se completó correctamente
+            return view('impresion')->with(['message' => 'Impresión completada', 'candidato' => $candidato]);
         } catch (\Exception $e) {
             // Manejar el error y mostrar un mensaje al usuario
             return redirect()->back()->withErrors(['error' => 'Hubo un problema al enviar la solicitud de impresión.']);

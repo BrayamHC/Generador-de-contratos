@@ -6,6 +6,7 @@ use App\Http\Controllers\CandidatoController;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImpresionController;
+use App\Http\Controllers\PdfController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -56,4 +57,6 @@ Route::post('/candidatos/{id}/editar', [CandidatoController::class, 'actualizar'
 Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->middleware('auth')->name('candidatos.eliminar');
 //Ruta de impresion
 Route::get('/impresion/{id}', [ImpresionController::class, 'enviarImpresion'])->middleware('auth')->name('impresion.enviar');
-//
+//Ruta de js para descargar el archivo pdf
+Route::get('/descargar-pdf/{id}', [PdfController::class, 'descargarPdf']);
+Route::get('/impresion/descargar/{id}', [PdfController::class, 'descargarPdf'])->name('impresion.descargar');

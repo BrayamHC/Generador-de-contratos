@@ -142,7 +142,7 @@
         @if($candidato->status === 'completo')
 <div class="print-button-container">
     <a href="{{ route('impresion.enviar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}">
-        <button class="print-button">Imprimir contrato</button>
+        <button id="imprimir-contrato" class="print-button">Imprimir contrato</button>
     </a>
 </div>
 @endif

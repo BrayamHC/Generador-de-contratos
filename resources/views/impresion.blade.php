@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargando...</title>
+    <title>Contrato Listo</title>
     <style>
         /* Fondo general */
         body, html {
@@ -15,7 +15,7 @@
             overflow: hidden;
         }
 
-        /* Estilo de la barra lateral */
+        /* Estilos para la barra lateral */
         .sidebar {
             width: 250px;
             background: #f0f0f0;
@@ -71,7 +71,34 @@
             background: #c82333;
         }
 
-        /* Contenedor del loader, centrado independientemente */
+        /* Estilo para el mensaje y el enlace de descarga */
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo del texto como botón de descarga */
+        .download-link {
+            font-size: 18px;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .download-link:hover {
+            color: #0056b3;
+        }
+
+        /* Loader */
         #loader {
             position: fixed;
             top: 50%;
@@ -80,7 +107,7 @@
             text-align: center;
             width: 100px;
             height: 100px;
-            z-index: 10; /* Asegura que esté al frente */
+            z-index: 10;
         }
 
         /* Efecto de ondas */
@@ -110,14 +137,6 @@
             animation-delay: 0.6s;
         }
 
-        /* Texto de carga */
-        #loader p {
-            margin-top: 110px;
-            font-size: 20px;
-            color: #333;
-        }
-
-        /* Animación de ondas */
         @keyframes wave-animation {
             0% {
                 opacity: 1;
@@ -145,13 +164,59 @@
         </form>
     </aside>
 
-    <!-- Loader centrado en pantalla -->
+    <!-- Contenido principal -->
+    <div class="content">
+        <div class="message">
+            El contrato está listo.
+        </div>
+        <!-- Texto como enlace de descarga -->
+        <span id="descargar-contrato" class="download-link">
+            Descargar contrato
+        </span>
+    </div>
+
     <div id="loader">
         <div class="wave"></div>
         <div class="wave"></div>
         <div class="wave"></div>
         <p>Cargando...</p>
+        <p>Su contrato está listo, puede descargarlo <span id="download-link" style="color: blue; text-decoration: underline; cursor: pointer;">aquí</span></p>
     </div>
-
+    
+    <script>
+        // Añadir evento para que el texto "aquí" ejecute la descarga
+        document.getElementById('download-link').addEventListener('click', function() {
+            var candidatoId = '{{ $candidato->id }}';  // Obtener el ID del candidato
+    
+            // Crear la URL de la ruta de descarga del PDF
+            var url = `/impresion/descargar/${candidatoId}`;
+            console.log('Solicitando archivo PDF desde: ', url);
+    
+            // Realizar la solicitud para descargar el archivo PDF
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.responseType = "blob";  // Tipo de respuesta que esperamos (archivo binario)
+    
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Crear un enlace temporal para descargar el archivo
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(xhr.response);  // Crear URL para el blob
+                    link.download = `contrato_${candidatoId}.pdf`;  // Nombre del archivo para la descarga
+                    link.click();  // Hacer clic en el enlace para iniciar la descarga
+                } else {
+                    // Manejar el error si no se pudo descargar el archivo
+                    alert('Error al intentar descargar el archivo PDF.');
+                }
+            };
+    
+            xhr.onerror = function() {
+                alert('Ocurrió un error al intentar descargar el archivo PDF.');
+            };
+    
+            xhr.send();  // Enviar la solicitud
+        });
+    </script>
+    
 </body>
 </html>
