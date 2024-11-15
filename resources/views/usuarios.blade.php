@@ -179,7 +179,6 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Usuario</th>
                             <th>Nombre Completo</th>
                             <th>Correo</th>
@@ -189,7 +188,6 @@
                     <tbody>
                         @foreach($usuarios as $usuario)
                             <tr>
-                                <td>{{ $usuario->id }}</td>
                                 <td>{{ $usuario->usuario }}</td>
                                 <td>{{ $usuario->nombre_completo }}</td>
                                 <td>{{ $usuario->correo }}</td>

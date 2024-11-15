@@ -21,20 +21,20 @@ class UsuarioController extends Controller
             'password' => 'required|string|confirmed',
             'superusuario' => 'nullable|boolean',
         ]);
-
+    
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+    
         // Crear el usuario
-        Usuario::create([ // Cambia 'usuario::crear' por 'Usuario::create'
-            'usuario' => $request->usuario, // Asegúrate de que el nombre del campo sea correcto
-            'correo' => $request->correo, // Asegúrate de que el nombre del campo sea correcto
-            'nombre_completo' => $request->nombre_completo, // Usa 'nombre_completo' en lugar de 'nombre'
-            'password' => Hash::make($request->password), // Asegúrate de que el nombre del campo sea correcto
-            'superusuario' => $request->has('superusuario') ? 1 : 0,
+        Usuario::create([
+            'usuario' => $request->usuario,
+            'correo' => $request->correo,
+            'nombre_completo' => $request->nombre_completo,
+            'password' => Hash::make($request->password),
+            'superusuario' => (int)$request->input('superusuario', 0),
         ]);
-
+    
         return redirect()->route('usuarios.listar')->with('success', 'Usuario registrado con éxito.');
     }
 

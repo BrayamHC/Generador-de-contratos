@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Candidatos</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
+    <link rel="icon" href="{{ asset('logo.ico') }}?v={{ time() }}" type="image/x-icon">
     <style>
         body {
             margin: 0;
@@ -60,11 +61,19 @@
             background: #c82333;
         }
         .main-content {
-            flex: 1;
-            padding: 20px;
-            font-size: 18px;
-            position: relative; /* Asegura que el botón de "Agregar" se posicione en la esquina superior derecha */
-        }
+    flex: 1;
+    padding: 20px;
+    font-size: 18px;
+    position: relative; /* Para posicionar el botón "Agregar" */
+    overflow-y: auto; /* Activa el desplazamiento vertical */
+    overflow-x: hidden; /* Oculta cualquier desplazamiento horizontal */
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Asegura que no haya desplazamiento en la vista completa */
+}
         h1 {
             text-align: center;
             margin-bottom: 20px;

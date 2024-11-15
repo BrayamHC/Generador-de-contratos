@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Candidato</title>
+    <title>Registro de Candidato</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
+    <link rel="icon" href="{{ asset('logo.ico') }}" type="image/x-icon">
     <style>
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía moderna */
             background: linear-gradient(135deg, #A9CCE3, #FFFDD0);
         }
         .container {
@@ -16,35 +17,35 @@
             height: 100vh;
         }
         .sidebar {
-            width: 250px;
+            width: 250px; /* Ancho de la barra lateral */
             background: #f0f0f0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            flex-direction: column; /* Permitir que los botones se apilen verticalmente */
+            justify-content: space-between; /* Separar botones y el de cerrar sesión */
         }
         .sidebar h2 {
             margin: 0 0 20px;
         }
         .button-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex-grow: 1;
+            flex-direction: column; /* Colocar botones en columna */
+            align-items: center; /* Centrar los botones horizontalmente */
+            flex-grow: 1; /* Para que tome el espacio disponible */
         }
         .sidebar button {
-            width: 80%;
-            margin: 10px 0;
+            width: 80%; /* Ancho del botón */
+            margin: 10px 0; /* Separación vertical entre botones */
             padding: 10px;
             background: #007bff;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 25px; /* Bordes redondeados */
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s; /* Efecto de transición al cambiar el color */
         }
         .sidebar button:hover {
-            background: #0056b3;
+            background: #0056b3; /* Color al pasar el ratón sobre el botón */
         }
         .sidebar form button {
             width: 80%;
@@ -61,48 +62,124 @@
         }
         .main-content {
             flex: 1;
+            padding: 20px;
+            font-size: 18px;
+            position: relative; /* Asegura que el botón de "Agregar" se posicione en la esquina superior derecha */
+            overflow-y: auto; /* Agregar desplazamiento vertical */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .acciones {
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding-top: 40px;
-            font-size: 24px;
+            gap: 10px; /* Espaciado entre botones */
+            text-align: center; /* Centrar el texto */
         }
+        /* Estilo para los botones de acción */
+        .view-button, .edit-button, .delete-button {
+            width: 90%; /* Asegura que los botones de acción tengan el mismo tamaño */
+            padding: 8px;
+            font-size: 14px; /* Tamaño de fuente más pequeño */
+            border-radius: 25px; /* Bordes redondeados */
+            color: white; /* Letra en blanco */
+            margin-bottom: 5px;
+        }
+
+        .view-button {
+            background-color: #007bff; /* Azul para ver */
+        }
+
+        .edit-button {
+            background-color: #28a745; /* Verde para editar */
+        }
+
+        .delete-button {
+            background-color: #dc3545; /* Rojo para eliminar */
+        }
+
+        .view-button:hover {
+            background-color: #0056b3; /* Azul oscuro al pasar el ratón */
+        }
+
+        .edit-button:hover {
+            background-color: #218838; /* Verde oscuro al pasar el ratón */
+        }
+
+        .delete-button:hover {
+            background-color: #c82333; /* Rojo oscuro al pasar el ratón */
+        }
+        .acciones a {
+            margin-right: 10px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .acciones a:hover {
+            color: #0056b3;
+        }
+
+        /* Estilo para el formulario */
         .form-container {
-            width: 50%;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-height: 80vh; /* Altura máxima para la tarjeta */
-            overflow-y: auto; /* Habilita el desplazamiento vertical */
-        }
-        .form-group {
-            display: flex;
-            justify-content: space-between;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1000px; /* Ampliar el ancho máximo */
+    width: 100%; /* Hacerlo flexible */
+    margin: 20px auto; /* Centrar el formulario */
+}
+
+        .form-container .form-group {
             margin-bottom: 15px;
         }
-        .form-group label {
-            flex-basis: 45%;
-            margin-right: 10px;
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
-        .form-group input, .form-group select {
-            flex-basis: 50%;
-            padding: 8px;
-            border: 1px solid #ccc;
+
+        .form-container input, .form-container select, .form-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
             border-radius: 5px;
         }
-        .save-button {
-            background: #007bff;
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 25px;
-            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
-            float: right;
         }
-        .save-button:hover {
-            background: #0056b3;
+
+        .form-container button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -123,10 +200,11 @@
 
         <!-- Contenido principal -->
         <main class="main-content">
+            <h1>Registro de Candidato</h1>
+
             <div class="form-container">
-                <h1>Registrar Candidato</h1>
-                <form method="POST" action="{{ route('candidatos.crear') }}">
-                    @csrf <!-- Protección CSRF -->
+                <form action="{{ route('candidatos.crear') }}" method="POST">
+                    @csrf
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" required>
@@ -196,11 +274,5 @@
             </div>
         </main>
     </div>
-    <script>
-        // Espera a que el DOM esté completamente cargado
-        window.onload = function() {
-            // Aquí puedes agregar cualquier lógica de JavaScript adicional si es necesario
-        };
-    </script>
 </body>
 </html>

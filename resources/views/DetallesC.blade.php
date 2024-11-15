@@ -64,10 +64,19 @@
             background: #c82333;
         }
         .main-content {
-            flex: 1;
-            padding: 20px;
-            font-size: 18px;
-        }
+    flex: 1;
+    padding: 20px;
+    font-size: 18px;
+    position: relative; /* Para posicionar el botón "Agregar" */
+    overflow-y: auto; /* Activa el desplazamiento vertical */
+    overflow-x: hidden; /* Oculta cualquier desplazamiento horizontal */
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Asegura que no haya desplazamiento en la vista completa */
+}
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -77,8 +86,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            max-height: 500px;
-            overflow-y: auto;
+            max-height: none; /* Eliminamos el límite de altura */
+            overflow-y: visible; /* Eliminamos el scroll */
         }
         .details-list {
             list-style-type: none;
@@ -140,12 +149,12 @@
 
         <!-- Botón de Imprimir contrato -->
         @if($candidato->status === 'completo')
-<div class="print-button-container">
-    <a href="{{ route('impresion.enviar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}">
-        <button id="imprimir-contrato" class="print-button">Imprimir contrato</button>
-    </a>
-</div>
-@endif
+        <div class="print-button-container">
+            <a href="{{ route('impresion.enviar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}">
+                <button id="imprimir-contrato" class="print-button">Imprimir contrato</button>
+            </a>
+        </div>
+        @endif
 
         <!-- Contenido principal -->
         <main class="main-content">
@@ -197,18 +206,12 @@
                     link.download = `contrato_${candidatoId}.pdf`;  // Nombre del archivo para la descarga
                     link.click();  // Hacer clic en el enlace para iniciar la descarga
                 } else {
-                    // Manejar el error si no se pudo descargar el archivo
-                    alert('Error al intentar descargar el archivo PDF.');
+                    alert('Error al intentar descargar el archivo.');
                 }
-            };
-        
-            xhr.onerror = function() {
-                alert('Ocurrió un error al intentar descargar el archivo PDF.');
             };
         
             xhr.send();  // Enviar la solicitud
         });
     </script>
-    
 </body>
 </html>

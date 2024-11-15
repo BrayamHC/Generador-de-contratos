@@ -12,6 +12,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/inicio', function () {
+    return view('inicio');
+});
+
 
 // Ruta de registro de usuario
 Route::get('/Registro/Usuario', function () {
@@ -59,4 +63,3 @@ Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->mid
 Route::get('/impresion/{id}', [ImpresionController::class, 'enviarImpresion'])->middleware('auth')->name('impresion.enviar');
 //Ruta de js para descargar el archivo pdf
 Route::get('/descargar-pdf/{id}', [PdfController::class, 'descargarPdf']);
-Route::get('/impresion/descargar/{id}', [PdfController::class, 'descargarPdf'])->name('impresion.descargar');
