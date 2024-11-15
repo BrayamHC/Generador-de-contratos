@@ -51,18 +51,38 @@ class ImpresionController extends Controller
                 $status = DB::table('candidatos')->where('id', $id)->value('status_impresion');
 
                 if ($status == 1) {
-                    break;
+                    // Llamamos al método para descargar el PDF y pasárselo a la vista
+                    return $this->descargarPdf($id); // Este método devolverá el PDF al JS para su descarga
                 }
 
                 // Esperar 5 segundos antes de la siguiente consulta
                 sleep(5);
             }
 
-            // Redirigir a la vista de carga si se completó correctamente
-            return view('impresion')->with(['message' => 'Impresión completada', 'candidato' => $candidato]);
         } catch (\Exception $e) {
             // Manejar el error y mostrar un mensaje al usuario
             return redirect()->back()->withErrors(['error' => 'Hubo un problema al enviar la solicitud de impresión.']);
         }
     }
+
+    public function descargarPdf($id)
+    {
+        $filePath = storage_path("app/pdfs/pdfs/impresion_contrato_candidato_{$id}.pdf");
+
+        // Verificar si el archivo existe
+        if (file_exists($filePath)) {
+            // Actualizar el campo status_impresion del candidato a 0
+            $candidato = Candidato::find($id);
+            if ($candidato) {
+                $candidato->status_impresion = 0;
+                $candidato->save();
+            }
+
+            // Descargar el archivo PDF
+            return response()->download($filePath, "contrato_{$id}.pdf");
+        } else {
+            abort(404, "Archivo no encontrado.");
+        }
+    }
 }
+

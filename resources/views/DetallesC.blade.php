@@ -174,5 +174,41 @@
             </div>
         </main>
     </div>
+    <script>
+        // Añadir evento para que el texto "aquí" ejecute la descarga
+        document.getElementById('download-link').addEventListener('click', function() {
+            var candidatoId = '{{ $candidato->id }}';  // Obtener el ID del candidato
+        
+            // Crear la URL de la ruta de descarga del PDF
+            var url = `/impresion/descargar/${candidatoId}`;  // Asegúrate de que esta ruta sea la correcta
+        
+            console.log('Solicitando archivo PDF desde: ', url);
+        
+            // Realizar la solicitud para descargar el archivo PDF
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.responseType = "blob";  // Tipo de respuesta que esperamos (archivo binario)
+        
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Crear un enlace temporal para descargar el archivo
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(xhr.response);  // Crear URL para el blob
+                    link.download = `contrato_${candidatoId}.pdf`;  // Nombre del archivo para la descarga
+                    link.click();  // Hacer clic en el enlace para iniciar la descarga
+                } else {
+                    // Manejar el error si no se pudo descargar el archivo
+                    alert('Error al intentar descargar el archivo PDF.');
+                }
+            };
+        
+            xhr.onerror = function() {
+                alert('Ocurrió un error al intentar descargar el archivo PDF.');
+            };
+        
+            xhr.send();  // Enviar la solicitud
+        });
+    </script>
+    
 </body>
 </html>

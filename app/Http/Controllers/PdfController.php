@@ -54,24 +54,4 @@ class PdfController extends Controller
             ], 400);
         }
     }
-
-    public function descargarPdf($id)
-    {
-        $filePath = storage_path("app/pdfs/pdfs/impresion_contrato_candidato_{$id}.pdf");
-
-        // Verificar si el archivo existe
-        if (file_exists($filePath)) {
-            // Actualizar el campo status_impresion del candidato a 0
-            $candidato = Candidato::find($id);
-            if ($candidato) {
-                $candidato->status_impresion = 0;
-                $candidato->save();
-            }
-
-            // Descargar el archivo PDF
-            return response()->download($filePath, "contrato_{$id}.pdf");
-        } else {
-            abort(404, "Archivo no encontrado.");
-        }
-    }
 }
