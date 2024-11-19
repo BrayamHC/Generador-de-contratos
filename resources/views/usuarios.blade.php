@@ -21,49 +21,62 @@
             padding: 20px;
             display: flex;
             flex-direction: column; /* Permitir que los botones se apilen verticalmente */
-            justify-content: space-between; /* Separar botones y el de cerrar sesión */
+            justify-content: flex-start;
         }
         .sidebar h2 {
             margin: 0 0 20px;
         }
+        .logo {
+            display: block;
+            margin: 10px auto 20px;
+            max-width: 150px;
+            height: auto;
+        }
+        .user-info {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
         .button-container {
             display: flex;
-            flex-direction: column; /* Colocar botones en columna */
-            align-items: center; /* Centrar los botones horizontalmente */
-            flex-grow: 1; /* Para que tome el espacio disponible */
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: flex-start;
+            margin-top: 20px;
         }
-        .sidebar button {
-            width: 80%; /* Ancho del botón */
-            margin: 10px 0; /* Separación vertical entre botones */
-            padding: 10px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 25px; /* Bordes redondeados */
-            cursor: pointer;
-            transition: background 0.3s; /* Efecto de transición al cambiar el color */
-        }
-        .sidebar button:hover {
-            background: #0056b3; /* Color al pasar el ratón sobre el botón */
-        }
-        .sidebar form button {
+        .sidebar button, .sidebar form button {
             width: 80%;
-            margin-top: 10px 0;
+            margin: 25px 0;
             padding: 10px;
-            background: #dc3545;
+            background: #2c3e50;
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .sidebar button:hover, .sidebar form button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar form button {
+            background: #dc3545;
+            margin-top: 20px; /* Separación entre los botones y el botón de cerrar sesión */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         .sidebar form button:hover {
-            background: #c82333;
+            background-color: #c82333;
         }
         .main-content {
             flex: 1;
             padding: 20px;
             font-size: 18px;
-            position: relative; /* Asegura que el botón de "Agregar" se posicione en la esquina superior derecha */
+            position: relative;
         }
         h1 {
             text-align: center;
@@ -74,7 +87,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
+            overflow-x: auto;
         }
         table {
             width: 100%;
@@ -91,88 +104,83 @@
         .acciones {
             display: flex;
             justify-content: center;
-            gap: 10px; /* Espaciado entre botones */
-            text-align: center; /* Centrar el texto */
+            gap: 10px;
+            text-align: center;
         }
-        /* Estilo para los botones de acción */
         .view-button, .edit-button, .delete-button {
-            width: 90%; /* Asegura que los botones de acción tengan el mismo tamaño */
+            width: 90%;
             padding: 8px;
-            font-size: 14px; /* Tamaño de fuente más pequeño */
-            border-radius: 25px; /* Bordes redondeados */
-            color: white; /* Letra en blanco */
+            font-size: 14px;
+            border-radius: 25px;
+            color: white;
             margin-bottom: 5px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
         }
-
+        .view-button {
+            background-color: #007bff;
+        }
         .edit-button {
-            background-color: #28a745; /* Verde para editar */
+            background-color: #28a745;
         }
-
         .delete-button {
-            background-color: #dc3545; /* Rojo para eliminar */
+            background-color: #dc3545;
         }
-
         .view-button:hover {
-            background-color: #0056b3; /* Azul oscuro al pasar el ratón */
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
         .edit-button:hover {
-            background-color: #218838; /* Verde oscuro al pasar el ratón */
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
         .delete-button:hover {
-            background-color: #c82333; /* Rojo oscuro al pasar el ratón */
+            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .acciones a {
-            margin-right: 10px;
-            color: #007bff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .acciones a:hover {
-            color: #0056b3;
-        }
-
-        /* Estilo para el botón Agregar */
         .add-button {
             position: absolute;
             top: 20px;
             right: 20px;
             padding: 10px 20px;
-            background-color: #007bff;
+            background: #2c3e50;
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
             font-size: 16px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
         }
-
         .add-button:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Barra lateral -->
         <aside class="sidebar">
             <h2>Menú</h2>
+            <img src="{{ asset('images/User.png') }}" alt="Logo" class="logo">
+            <div class="user-info">
+                <strong>Usuario:</strong> {{ auth()->user()->usuario }}
+            </div>
             <div class="button-container">
-                <button type="button" onclick="location.href='/usuarios'">Usuarios</button> <!-- Navegación a la página de usuarios -->
-                <button type="button" onclick="location.href='/candidatos'">Candidatos</button> <!-- Navegación a la página de candidatos -->
+                <button type="button" onclick="location.href='/usuarios'">Usuarios</button>
+                <button type="button" onclick="location.href='/candidatos'">Candidatos</button>
             </div>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button type="submit" id="logout-button">Cerrar sesión</button>
+                <button type="submit">Cerrar sesión</button>
             </form>
         </aside>
-
-        <!-- Contenido principal -->
         <main class="main-content">
-            <h1>Lista de Usuarios</h1>
-            <!-- Mostrar botón de agregar solo si el usuario es superusuario y está autenticado -->
-            @if($usuario && $usuario->superusuario)
+            <h2 style="text-align: center; font-size: 27px; color: #2c3e50; margin-bottom: 20px;">
+                Usuarios
+            </h2>            @if(auth()->user() && auth()->user()->superusuario)
             <button class="add-button" onclick="location.href='/Registro/Usuario'">Agregar</button>
             @endif
             <div class="user-card">
@@ -187,26 +195,25 @@
                     </thead>
                     <tbody>
                         @foreach($usuarios as $usuario)
-                            <tr>
-                                <td>{{ $usuario->usuario }}</td>
-                                <td>{{ $usuario->nombre_completo }}</td>
-                                <td>{{ $usuario->correo }}</td>
-                                <td>
-                                    <div class="acciones">
-                                        <!-- Mostrar los botones de acción solo si el usuario es superusuario y está autenticado -->
-                                        @if(auth()->user()->superusuario)
-                                            <a href="{{ route('usuarios.editar', ['id' => $usuario->id, 'idsello' => substr(hash('sha256', $usuario->id . config('constants.URL_SALT')), -8)]) }}">
-                                                <button class="edit-button">Editar</button>
-                                            </a>
-                                            <form action="{{ route('usuarios.eliminar', ['id' => $usuario->id, 'idsello' => substr(hash('sha256', $usuario->id . config('constants.URL_SALT')), -8)]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar a este usuario?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="delete-button">Eliminar</button>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ $usuario->usuario }}</td>
+                            <td>{{ $usuario->nombre_completo }}</td>
+                            <td>{{ $usuario->correo }}</td>
+                            <td>
+                                <div class="acciones">
+                                    @if(auth()->user()->superusuario)
+                                    <a href="{{ route('usuarios.editar', $usuario->id) }}">
+                                        <button class="edit-button">Editar</button>
+                                    </a>
+                                    <form action="{{ route('usuarios.eliminar', $usuario->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-button">Eliminar</button>
+                                    </form>
+                                    @endif
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

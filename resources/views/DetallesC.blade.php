@@ -22,7 +22,7 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start; /* El contenido comienza desde la parte superior */
             color: black;
         }
         .sidebar h2 {
@@ -30,38 +30,60 @@
             font-size: 24px;
             font-weight: bold;
         }
+        .logo {
+            display: block;
+            margin: 10px auto 20px; /* Centrar el logo y agregar espaciado */
+            max-width: 150px; /* Máximo ancho recomendado */
+            height: auto; /* Mantener la proporción del logo */
+        }
+        .user-info {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center; /* Centrado del nombre de usuario */
+        }
         .button-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             flex-grow: 1;
+            justify-content: flex-start; /* Subir los botones un poco */
+            margin-top: 20px; /* Ajuste del margen superior */
         }
         .sidebar button {
             width: 80%; /* Ancho del botón */
-            margin: 10px 0; /* Separación vertical entre botones */
+            margin: 25px 0; /* Separación vertical entre botones */
             padding: 10px;
-            background: #007bff;
+            background: #2c3e50;
             color: white;
             border: none;
             border-radius: 25px; /* Bordes redondeados */
             cursor: pointer;
-            transition: background 0.3s; /* Efecto de transición al cambiar el color */
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Transición para suavizar efectos */
         }
         .sidebar button:hover {
-            background: #0056b3;
+            background-color: #2980b9; /* Color del botón al pasar el mouse */
+            transform: translateY(-2px); /* Efecto de elevación */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra al hacer hover */
         }
         .sidebar form button {
             width: 80%;
-            margin-top: 10px 0;
+            margin-top: 20px; /* Separación entre los botones y el botón de cerrar sesión */
             padding: 10px;
             background: #dc3545;
             color: white;
             border: none;
             border-radius: 25px;
             cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Transición para suavizar efectos */
         }
         .sidebar form button:hover {
-            background: #c82333;
+            background-color: #c82333; /* Color al pasar el ratón sobre el botón */
+            transform: translateY(-2px); /* Efecto de elevación */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra al hacer hover */
         }
         .main-content {
     flex: 1;
@@ -118,17 +140,17 @@
             z-index: 10;
         }
         .print-button {
-            background-color: #007bff;
+            background: #2c3e50;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Transición para suavizar efectos */
         }
         .print-button:hover {
-            background-color: #0056b3;
+            background-color: #2980b9; /* Color del botón al pasar el mouse */
         }
     </style>
 </head>
@@ -137,6 +159,12 @@
         <!-- Barra lateral -->
         <aside class="sidebar">
             <h2>Menú</h2>
+             <!-- Mostrar el logo -->
+             <img src="{{ asset('images/User.png') }}" alt="Logo" class="logo"> <!-- Ruta del logo -->
+             <!-- Mostrar información del usuario -->
+             <div class="user-info">
+                 <strong>Usuario:</strong> {{ auth()->user()->usuario }} <!-- Muestra el nombre del usuario logueado -->
+             </div>
             <div class="button-container">
                 <button type="button" onclick="location.href='/usuarios'">Usuarios</button>
                 <button type="button" onclick="location.href='/candidatos'">Candidatos</button>
@@ -158,29 +186,89 @@
 
         <!-- Contenido principal -->
         <main class="main-content">
-            <h1>Detalle del Candidato</h1>
+            <h2 style="text-align: center; font-size: 27px; color: #2c3e50; margin-bottom: 20px;">
+                Información del Candidato
+            </h2>
             <div class="candidato-details">
-                <ul class="details-list">
-                    <!-- Línea divisoria antes de la llave -->
-                    <li><div class="divider"></div><span>Nombre:</span> {{ $candidato->nombre }}</li>
-                    <li><div class="divider"></div><span>Apellido Paterno:</span> {{ $candidato->apellido_paterno }}</li>
-                    <li><div class="divider"></div><span>Apellido Materno:</span> {{ $candidato->apellido_materno }}</li>
-                    <li><div class="divider"></div><span>RFC:</span> {{ $candidato->rfc ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>CURP:</span> {{ $candidato->curp ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>NSS:</span> {{ $candidato->nss ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Dirección 1:</span> {{ $candidato->direccion1 ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Dirección 2:</span> {{ $candidato->direccion2 ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Estado:</span> {{ $candidato->estado ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Ciudad:</span> {{ $candidato->ciudad ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>CP:</span> {{ $candidato->cp ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>País:</span> {{ $candidato->pais ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Puesto:</span> {{ $candidato->puesto ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Salario Diario:</span> {{ $candidato->salario_diario ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Fecha de Ingreso:</span> {{ $candidato->fecha_ingreso ?? ' ' }}</li>
-                    <li><div class="divider"></div><span>Correo Electrónico:</span> {{ $candidato->correo_electronico ?? ' ' }}</li>
-                    <!-- No mostramos el campo 'status', pero lo validamos -->
-                </ul>
-            </div>
+    <!-- Cabecera del formulario -->
+    
+    <!-- Tabla para mostrar los detalles -->
+    <table style="width: 100%; border-collapse: collapse; margin: 0 auto; font-size: 16px; text-align: left;">
+        <thead>
+            <tr style="background-color: #f4f4f4; border-bottom: 2px solid #ccc;">
+                <th style="padding: 10px; width: 40%;">Campo</th>
+                <th style="padding: 10px;">Informacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Nombre</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->nombre }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Apellido Paterno</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->apellido_paterno }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Apellido Materno</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->apellido_materno }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">RFC</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->rfc ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">CURP</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->curp ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">NSS</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->nss ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Dirección 1</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->direccion1 ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Dirección 2</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->direccion2 ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Estado</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->estado ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Ciudad</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->ciudad ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">CP</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->cp ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">País</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->pais ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Puesto</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->puesto ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Salario Diario</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->salario_diario ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Fecha de Ingreso</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->fecha_ingreso ?? 'No disponible' }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Correo Electrónico</td>
+                <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ $candidato->correo_electronico ?? 'No disponible' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
         </main>
     </div>
     <script>

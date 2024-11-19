@@ -26,6 +26,14 @@
             transform: translateY(20px); /* Comienza desplazado hacia abajo */
             transition: opacity 0.5s ease, transform 0.5s ease; /* Transición suave */
         }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px; /* Tamaño máximo del logo */
+            height: auto;
+        }
         h1 {
             text-align: center;
             color: #333; /* Color de texto más oscuro */
@@ -85,6 +93,12 @@
 </head>
 <body>
     <div class="container" id="login-container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{{ asset('images/Logo.png') }}" alt="Login Logo">
+        </div>
+
+        <!-- Título -->
         <h1>Iniciar Sesión</h1>
 
         @if(session('success'))
@@ -99,6 +113,7 @@
             </div>
         @endif
 
+        <!-- Formulario -->
         <form action="{{ route('login') }}" method="POST">
             @csrf
             <div class="form-group">
