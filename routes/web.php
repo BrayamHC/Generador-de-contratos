@@ -9,22 +9,22 @@ use App\Http\Controllers\ImpresionController;
 use App\Http\Controllers\PdfController;
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Route::get('/inicio', function () {
-    return view('inicio');
+  return view('inicio');
 });
 
 
 // Ruta de registro de usuario
 Route::get('/Registro/Usuario', function () {
-    return view('RegistroS');
+  return view('RegistroS');
 })->middleware('auth')->name('RegistroS');
 
 //Ruta para registro de candidato
 Route::get('/Registro/Candidato', function () {
-    return view('RegistroC');
+  return view('RegistroC');
 })->middleware('auth')->name('RegistroC');
 
 
