@@ -13,6 +13,39 @@
             background: linear-gradient(135deg, #A9CCE3, #FFFDD0);
         }
 
+        .loader {
+            border: 2px solid #f3f3f3;
+            /* Gris claro */
+            border-top: 2px solid #2c3e50;
+            /* Azul */
+            border-radius: 50%;
+            /* Ajusta la forma a un círculo */
+            width: 30px;
+            height: 30px;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 0px;
+            /* Espacio suficiente entre el botón y el loader */
+            display: inline-block;
+            /* Para que se alinee junto al botón */
+            vertical-align: middle;
+            /* Asegura que esté alineado verticalmente con el botón */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            margin-left: 10px;
+            /* Asegúrate de que no tenga margen izquierdo */
+        }
+
         .container {
             display: flex;
             height: 100vh;
@@ -201,6 +234,10 @@
         .print-button:hover {
             background-color: #2980b9;
             /* Color del botón al pasar el mouse */
+            transform: translateY(-2px);
+            /* Efecto de elevación */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Sombra al hacer hover */
         }
     </style>
 </head>
@@ -229,9 +266,11 @@
         <!-- Botón de Imprimir contrato -->
         @if ($candidato->status === 'completo')
             <div class="print-button-container">
+                <div id="loader" class="loader" style="display: none;"></div>
                 <a
                     href="{{ route('impresion.enviar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}">
-                    <button id="imprimir-contrato" class="print-button">Imprimir contrato</button>
+                    <button id="imprimir-contrato" class="print-button" onclick="mostrarLoader()">Imprimir
+                        contrato</button>
                 </a>
             </div>
         @endif
@@ -349,6 +388,9 @@
 
             console.log('Solicitando archivo PDF desde: ', url);
 
+            // Mostrar el loader
+            mostrarLoader();
+
             try {
                 // Realizar la solicitud para descargar el archivo PDF
                 const response = await fetch(url);
@@ -361,18 +403,42 @@
                 const blob = await response.blob();
 
                 // Crear un enlace temporal para descargar el archivo
+                const blobUrl = URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob); // Crear URL para el blob
-                link.download = `contrato_${candidatoId}.pdf`; // Nombre del archivo para la descarga
-                link.click(); // Hacer clic en el enlace para iniciar la descarga
+                link.href = blobUrl;
+                link.download = `contrato_${candidatoId}.pdf`;
 
-                // Liberar memoria asociada al blob
-                URL.revokeObjectURL(link.href);
+                // Escuchar el evento de carga del enlace para ocultar el loader
+                link.onload = function() {
+                    ocultarLoader(); // Ocultar loader cuando el blob esté completamente cargado
+                    URL.revokeObjectURL(blobUrl); // Liberar memoria asociada al blob
+                };
+
+                // Simular el clic en el enlace para iniciar la descarga
+                link.click();
+
+                // Asegurarse de ocultar el loader en caso de que el evento onload no sea disparado
+                setTimeout(() => {
+                    ocultarLoader();
+                }, 2000); // Tiempo límite para ocultar el loader
+
             } catch (error) {
                 console.error('Error durante la descarga del archivo:', error);
                 alert('Error al intentar descargar el archivo.');
+                ocultarLoader(); // Ocultar el loader incluso si ocurre un error
             }
         });
+
+        function mostrarLoader() {
+            // Muestra el loader
+            const loader = document.getElementById('loader');
+            loader.style.display = 'inline-block';
+
+            // Oculta el loader tras unos segundos (tiempo estimado de descarga o cambio de página)
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 6000); // Ajusta el tiempo si es necesario
+        }
     </script>
 </body>
 
