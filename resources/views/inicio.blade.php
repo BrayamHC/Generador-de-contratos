@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #A9CCE3, #FFFDD0);
         }
+
         .container {
             display: flex;
             flex-direction: column;
@@ -20,6 +22,7 @@
             text-align: center;
             position: relative;
         }
+
         .content {
             max-width: 800px;
             padding: 40px;
@@ -27,24 +30,29 @@
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
             color: #333;
         }
+
         p {
             font-size: 20px;
             color: #555;
             margin-bottom: 30px;
         }
+
         .button-container {
             position: absolute;
             top: 20px;
             right: 20px;
         }
+
         .button-container a {
             text-decoration: none;
         }
+
         .login-button {
             background-color: #007bff;
             color: white;
@@ -55,11 +63,13 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+
         .login-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Botón de Login -->
@@ -72,8 +82,10 @@
         <!-- Contenido principal -->
         <div class="content">
             <h1>Sistema Generador de Contratos</h1>
-            <p>Bienvenido a Loma, Expertos en TI. Nuestro sistema le permite generar contratos de manera rápida, sencilla y segura.</p>
+            <p>Bienvenido a Loma, Expertos en TI. Nuestro sistema le permite generar contratos de manera rápida,
+                sencilla y segura.</p>
         </div>
     </div>
 </body>
+
 </html>
