@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Candidato</title>
+    <link rel="icon" href="{{ asset('Logo.ico') }}?v={{ time() }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
-    <link rel="icon" href="{{ asset('logo.ico') }}" type="image/x-icon">
     <style>
         body {
             margin: 0;
@@ -98,7 +98,7 @@
             margin-top: 20px;
             /* Separación entre los botones y el botón de cerrar sesión */
             padding: 10px;
-            background: #dc3545;
+            background: #ff0019;
             color: white;
             border: none;
             border-radius: 25px;
@@ -111,7 +111,7 @@
         }
 
         .sidebar form button:hover {
-            background-color: #c82333;
+            background-color: #a10515;
             /* Color al pasar el ratón sobre el botón */
             transform: translateY(-2px);
             /* Efecto de elevación */
@@ -134,6 +134,18 @@
             margin-bottom: 20px;
         }
 
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .user-card {
             background-color: white;
             border-radius: 10px;
@@ -141,6 +153,8 @@
             padding: 20px;
             overflow-x: auto;
             /* Habilitar desplazamiento horizontal si es necesario */
+            animation: fadeInUp 1s ease-out;
+
         }
 
         table {
@@ -207,6 +221,8 @@
             /* Hacerlo flexible */
             margin: 20px auto;
             /* Centrar el formulario */
+            animation: fadeInUp 1s ease-out;
+
         }
 
         .form-container .form-group {
@@ -274,8 +290,9 @@
 
         <!-- Contenido principal -->
         <main class="main-content">
-            <h1>Registro de Candidato</h1>
-
+            <h2 style="text-align: center; font-size: 27px; color: #2c3e50; margin-bottom: 20px;">
+                Registro de candidato
+            </h2>
             <div class="form-container">
                 <form action="{{ route('candidatos.crear') }}" method="POST">
                     @csrf

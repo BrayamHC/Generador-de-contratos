@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Usuario</title>
+    <link rel="icon" href="{{ asset('Logo.ico') }}?v={{ time() }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
     <style>
         body {
@@ -97,7 +98,7 @@
             margin-top: 20px;
             /* Separación entre los botones y el botón de cerrar sesión */
             padding: 10px;
-            background: #dc3545;
+            background: #ff0019;
             color: white;
             border: none;
             border-radius: 25px;
@@ -110,7 +111,7 @@
         }
 
         .sidebar form button:hover {
-            background-color: #c82333;
+            background-color: #a10515;
             /* Color al pasar el ratón sobre el botón */
             transform: translateY(-2px);
             /* Efecto de elevación */
@@ -233,6 +234,18 @@
             color: #0056b3;
         }
 
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Estilo para el formulario */
         .form-container {
             background-color: #ffffff;
@@ -245,6 +258,8 @@
             /* Hacerlo flexible */
             margin: 20px auto;
             /* Centrar el formulario */
+            animation: fadeInUp 1s ease-out;
+
         }
 
         .form-container .form-group {
@@ -312,8 +327,9 @@
 
         <!-- Contenido principal -->
         <main class="main-content">
-            <h3 class="titulo-centrado">Registrar Usuario</h3>
-
+            <h2 style="text-align: center; font-size: 27px; color: #2c3e50; margin-bottom: 20px;">
+                Registro de usuario
+            </h2>
             <div class="form-container">
                 <form method="POST" action="{{ route('usuarios.crear') }}">
                     @csrf

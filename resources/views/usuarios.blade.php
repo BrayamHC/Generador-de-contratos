@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuarios</title>
+    <link rel="icon" href="{{ asset('Logo.ico') }}?v={{ time() }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
     <style>
         body {
@@ -78,16 +79,29 @@
         }
 
         .sidebar form button {
-            background: #dc3545;
+            width: 80%;
             margin-top: 20px;
             /* Separación entre los botones y el botón de cerrar sesión */
+            padding: 10px;
+            background: #ff0019;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
             display: block;
             margin-left: auto;
             margin-right: auto;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            /* Transición para suavizar efectos */
         }
 
         .sidebar form button:hover {
-            background-color: #c82333;
+            background-color: #a10515;
+            /* Color al pasar el ratón sobre el botón */
+            transform: translateY(-2px);
+            /* Efecto de elevación */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Sombra al hacer hover */
         }
 
         .main-content {
@@ -101,6 +115,17 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .user-card {
             background-color: white;
@@ -108,6 +133,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 20px;
             overflow-x: auto;
+            animation: fadeInUp 1s ease-out;
         }
 
         table {

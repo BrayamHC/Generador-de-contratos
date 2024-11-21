@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del Candidato</title>
+    <link rel="icon" href="{{ asset('Logo.ico') }}?v={{ time() }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
     <style>
         body {
@@ -172,6 +173,17 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .candidato-details {
             background-color: white;
@@ -182,6 +194,8 @@
             /* Eliminamos el límite de altura */
             overflow-y: visible;
             /* Eliminamos el scroll */
+            animation: fadeInUp 1s ease-out;
+
         }
 
         .details-list {
@@ -310,67 +324,67 @@
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">RFC</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->rfc ?? 'No disponible' }}</td>
+                                {{ $candidato->rfc ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">CURP</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->curp ?? 'No disponible' }}</td>
+                                {{ $candidato->curp ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">NSS</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->nss ?? 'No disponible' }}</td>
+                                {{ $candidato->nss ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Dirección 1</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->direccion1 ?? 'No disponible' }}</td>
+                                {{ $candidato->direccion1 ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Dirección 2</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->direccion2 ?? 'No disponible' }}</td>
+                                {{ $candidato->direccion2 ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Estado</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->estado ?? 'No disponible' }}</td>
+                                {{ $candidato->estado ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Ciudad</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->ciudad ?? 'No disponible' }}</td>
+                                {{ $candidato->ciudad ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">CP</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->cp ?? 'No disponible' }}</td>
+                                {{ $candidato->cp ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">País</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->pais ?? 'No disponible' }}</td>
+                                {{ $candidato->pais ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Puesto</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->puesto ?? 'No disponible' }}</td>
+                                {{ $candidato->puesto ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Salario Diario</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->salario_diario ?? 'No disponible' }}</td>
+                                {{ $candidato->salario_diario ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Fecha de Ingreso</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->fecha_ingreso ?? 'No disponible' }}</td>
+                                {{ $candidato->fecha_ingreso ?? '' }}</td>
                         </tr>
                         <tr>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">Correo Electrónico</td>
                             <td style="padding: 10px; border-bottom: 1px solid #ddd;">
-                                {{ $candidato->correo_electronico ?? 'No disponible' }}</td>
+                                {{ $candidato->correo_electronico ?? '' }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -416,11 +430,6 @@
 
                 // Simular el clic en el enlace para iniciar la descarga
                 link.click();
-
-                // Asegurarse de ocultar el loader en caso de que el evento onload no sea disparado
-                setTimeout(() => {
-                    ocultarLoader();
-                }, 2000); // Tiempo límite para ocultar el loader
 
             } catch (error) {
                 console.error('Error durante la descarga del archivo:', error);

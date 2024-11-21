@@ -3,10 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CandidatoController;
-use App\Models\Usuario;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImpresionController;
-use App\Http\Controllers\PdfController;
 
 Route::get('/', function () {
   return view('welcome');
@@ -34,6 +32,7 @@ Route::get('/principal', [AuthController::class, 'principal'])->middleware('auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('sesion');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 //RUTAS DE USUARIO
 // Ruta para crear usuario
 Route::post('/usuarios', [UsuarioController::class, 'crear'])->middleware('auth')->name('usuarios.crear');
@@ -56,10 +55,12 @@ Route::get('/candidatos/{id}', [CandidatoController::class, 'mostrar'])->middlew
 //Ruta para ver editar candidato
 Route::get('/candidatos/editar/{id}', [CandidatoController::class, 'editar'])->middleware('auth')->name('candidatos.editar');
 //Ruta que manda para actualizar el candidato
-Route::post('/candidatos/{id}/editar', [CandidatoController::class, 'actualizar'])->middleware('auth')->name('candidatos.actualizar');
+Route::patch('/candidatos/{id}/editar', [CandidatoController::class, 'actualizar'])->middleware('auth')->name('candidatos.actualizar');
 //Ruta para eliminar candidato
 Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->middleware('auth')->name('candidatos.eliminar');
-//Ruta de impresion
+
+//RUTAS DE IMPRESION
 Route::get('/impresion/{id}', [ImpresionController::class, 'enviarImpresion'])->middleware('auth')->name('impresion.enviar');
-//Ruta de js para descargar el archivo pdf
-Route::get('/descargar-pdf/{id}', [PdfController::class, 'descargarPdf']);
+//Ruta de js
+Route::get('/impresion/descargar/{id}', [ImpresionController::class, 'descargarPdf']);
+

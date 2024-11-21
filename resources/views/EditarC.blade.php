@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Candidato</title>
+    <link rel="icon" href="{{ asset('Logo.ico') }}?v={{ time() }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
     <style>
         body {
@@ -97,7 +98,7 @@
             margin-top: 20px;
             /* Separación entre los botones y el botón de cerrar sesión */
             padding: 10px;
-            background: #dc3545;
+            background: #ff0019;
             color: white;
             border: none;
             border-radius: 25px;
@@ -110,7 +111,7 @@
         }
 
         .sidebar form button:hover {
-            background-color: #c82333;
+            background-color: #a10515;
             /* Color al pasar el ratón sobre el botón */
             transform: translateY(-2px);
             /* Efecto de elevación */
@@ -132,6 +133,17 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .form-container {
             background-color: #ffffff;
@@ -144,6 +156,7 @@
             /* Hacerlo flexible */
             margin: 20px auto;
             /* Centrar el formulario */
+            animation: fadeInUp 1s ease-out;
         }
 
         .form-container .form-group {
@@ -218,7 +231,7 @@
             <div class="form-container">
                 <form action="{{ route('candidatos.actualizar', $candidato->id) }}" method="POST">
                     @csrf
-                    @method('POST')
+                    @method('PATCH')
 
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
