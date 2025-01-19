@@ -129,7 +129,7 @@
             margin-top: 20px;
             /* Separación entre los botones y el botón de cerrar sesión */
             padding: 10px;
-            background: #dc3545;
+            background: #ff0019;
             color: white;
             border: none;
             border-radius: 25px;
@@ -142,7 +142,7 @@
         }
 
         .sidebar form button:hover {
-            background-color: #c82333;
+            background-color: #a10515;
             /* Color al pasar el ratón sobre el botón */
             transform: translateY(-2px);
             /* Efecto de elevación */
@@ -173,6 +173,7 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
         @keyframes fadeInUp {
             0% {
                 opacity: 0;

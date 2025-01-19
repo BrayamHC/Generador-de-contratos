@@ -176,11 +176,11 @@
         }
 
         .edit-button {
-            background-color: #28a745;
+            background-color: #2c3e50;
         }
 
         .delete-button {
-            background-color: #dc3545;
+            background-color: #ff0019;
         }
 
         .view-button:hover {

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->date('fecha_ingreso')->nullable();
             $table->string('correo_electronico', 50)->nullable();
             $table->string('status', 50)->nullable();
+            $table->boolean('status_impresion')->default(0); // Campo adicional como booleano
             $table->timestamps();
         });
         

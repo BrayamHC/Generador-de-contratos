@@ -14,7 +14,7 @@ class RabbitMQService
     {
         // Establecer conexión con RabbitMQ
         $this->connection = new AMQPStreamConnection(
-            env('RABBITMQ_HOST', '127.0.0.1'), 
+            env('RABBITMQ_HOST', 'rabbitmq_contratos'), 
             env('RABBITMQ_PORT', 5672),
             env('RABBITMQ_USERNAME', 'user'),
             env('RABBITMQ_PASSWORD', 'password'),

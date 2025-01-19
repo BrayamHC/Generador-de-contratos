@@ -63,4 +63,3 @@ Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->mid
 Route::get('/impresion/{id}', [ImpresionController::class, 'enviarImpresion'])->middleware('auth')->name('impresion.enviar');
 //Ruta de js
 Route::get('/impresion/descargar/{id}', [ImpresionController::class, 'descargarPdf']);
-
