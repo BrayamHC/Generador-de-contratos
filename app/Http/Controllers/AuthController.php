@@ -12,12 +12,12 @@ class AuthController extends Controller
 
   public function showLoginForm()
   {
-    return view('login'); // Muestra la vista de login
+    return view('/login.login'); // Muestra la vista de login
   }
 
   public function principal()
   {
-    return view('principal'); // Muestra la vista de login
+    return view('/home.principal'); // Muestra la vista de login
   }
 
   // En AuthController.php
