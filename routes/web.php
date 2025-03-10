@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImpresionController;
 
 Route::get('/', function () {
-  return view('welcome');
+    return view('welcome');
 });
 
 Route::get('/inicio', function () {
-  return view('inicio');
+    return view('inicio');
 });
 
 
 // Ruta de registro de usuario
-Route::get('/Registro/Usuario', function () {
-  return view('RegistroS');
-})->middleware('auth')->name('RegistroS');
+Route::get('/Usuario/Registro', function () {
+    return view('/usuarios.UsuariosAgregar');
+})->middleware('auth')->name('UsuarioAgregar');
 
 //Ruta para registro de candidato
 Route::get('/Registro/Candidato', function () {
-  return view('RegistroC');
+    return view('/candidatos.CandidatosAgregar');
 })->middleware('auth')->name('RegistroC');
 
 
