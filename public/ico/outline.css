@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?rckqrk');
+    src: url('fonts/icomoon.eot?rckqrk#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?rckqrk') format('truetype'),
+        url('fonts/icomoon.woff?rckqrk') format('woff'),
+        url('fonts/icomoon.svg?rckqrk#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-library:before {
+    content: "\e921";
+}
+
+.icon-profile:before {
+    content: "\e923";
+}
+
+.icon-file-text2:before {
+    content: "\e926";
+}
+
+.icon-copy:before {
+    content: "\e92c";
+}
+
+.icon-paste:before {
+    content: "\e92d";
+}
+
+.icon-coin-dollar:before {
+    content: "\e93b";
+}
+
+.icon-user-plus:before {
+    content: "\e973";
+}
+
+.icon-user-check:before {
+    content: "\e975";
+}
+
+.icon-user-tie:before {
+    content: "\e976";
+}
+
+.icon-cog:before {
+    content: "\e994";
+}
+
+.icon-cogs:before {
+    content: "\e995";
+}
+
+.icon-pie-chart:before {
+    content: "\e99a";
+}
+
+.icon-stats-dots:before {
+    content: "\e99b";
+}
+
+.icon-stats-bars:before {
+    content: "\e99c";
+}
+
+.icon-clipboard:before {
+    content: "\e9b8";
+}
+
+.icon-list-numbered:before {
+    content: "\e9b9";
+}
+
+.icon-list:before {
+    content: "\e9ba";
+}
+
+.icon-list2:before {
+    content: "\e9bb";
+}
+
+.icon-info:before {
+    content: "\ea0c";
+}
+
+.icon-cancel-circle:before {
+    content: "\ea0d";
+}
+
+.icon-checkbox-checked:before {
+    content: "\ea52";
+}
+
+.icon-checkbox-unchecked:before {
+    content: "\ea53";
+}
