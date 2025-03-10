@@ -6,98 +6,100 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Usuario; // Asegúrate de que el nombre del modelo sea 'Usuario'
+use App\Objects\UsuarioObj;
+use App\Services\UsuarioService;
 use Illuminate\Support\Facades\Auth;
 
 
 class UsuarioController extends Controller
 {
-  public function crear(Request $request)
-  {
-    // Validación de datos
-    $validator = Validator::make($request->all(), [
-      'usuario' => 'required|string|max:255|unique:usuarios',
-      'correo' => 'required|string|max:255|unique:usuarios',
-      'nombre_completo' => 'required|string|max:255',
-      'password' => 'required|string|confirmed',
-      'superusuario' => 'nullable|boolean',
-    ]);
+    public function crear(Request $request)
+    {
+        // Validación de datos
+        $validator = Validator::make($request->all(), [
+            'usuario' => 'required|string|max:255|unique:usuarios',
+            'correo' => 'required|string|max:255|unique:usuarios',
+            'nombre_completo' => 'required|string|max:255',
+            'password' => 'required|string|confirmed',
+            'superusuario' => 'nullable|boolean',
+        ]);
 
-    if ($validator->fails()) {
-      return back()->withErrors($validator)->withInput();
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        // Crear el usuario
+        Usuario::create([
+            'usuario' => $request->usuario,
+            'correo' => $request->correo,
+            'nombre_completo' => $request->nombre_completo,
+            'password' => Hash::make($request->password),
+            'superusuario' => (int)$request->input('superusuario', 0),
+        ]);
+
+        return redirect()->route('usuarios.listar')->with('success', 'Usuario registrado con éxito.');
     }
 
-    // Crear el usuario
-    Usuario::create([
-      'usuario' => $request->usuario,
-      'correo' => $request->correo,
-      'nombre_completo' => $request->nombre_completo,
-      'password' => Hash::make($request->password),
-      'superusuario' => (int)$request->input('superusuario', 0),
-    ]);
+    public function actualizar(Request $request, $id)
+    {
+        // Validación de los datos de entrada
+        $request->validate([
+            'usuario' => 'required|string|max:255', // Sin validación de unicidad
+            'correo' => 'required|email|max:255', // Sin validación de unicidad
+            'nombre_completo' => 'required|string|max:255',
+            'password' => 'nullable|string|confirmed', // Contraseña opcional, debe ser confirmada si se proporciona
+        ]);
 
-    return redirect()->route('usuarios.listar')->with('success', 'Usuario registrado con éxito.');
-  }
+        // Buscar al usuario por ID
+        $usuario = Usuario::findOrFail($id);
 
-  public function actualizar(Request $request, $id)
-  {
-    // Validación de los datos de entrada
-    $request->validate([
-      'usuario' => 'required|string|max:255', // Sin validación de unicidad
-      'correo' => 'required|email|max:255', // Sin validación de unicidad
-      'nombre_completo' => 'required|string|max:255',
-      'password' => 'nullable|string|min:8|confirmed', // Contraseña opcional, debe ser confirmada si se proporciona
-    ]);
+        // Obtener solo los campos del formulario que se desean actualizar
+        $campos = $request->only([
+            'usuario',
+            'correo',
+            'nombre_completo',
+        ]);
 
-    // Buscar al usuario por ID
-    $usuario = Usuario::findOrFail($id);
+        // Si la contraseña fue proporcionada, encriptarla con Hash::make
+        if ($request->filled('password')) {
+            $campos['password'] = Hash::make($request->password);
+        }
 
-    // Obtener solo los campos del formulario que se desean actualizar
-    $campos = $request->only([
-      'usuario',
-      'correo',
-      'nombre_completo',
-    ]);
+        // Actualizar el usuario
+        $usuario->update($campos);
 
-    // Si la contraseña fue proporcionada, encriptarla con Hash::make
-    if ($request->filled('password')) {
-      $campos['password'] = Hash::make($request->password);
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('usuarios.listar')->with('success', 'Usuario actualizado exitosamente');
     }
 
-    // Actualizar el usuario
-    $usuario->update($campos);
-
-    // Redirigir con un mensaje de éxito
-    return redirect()->route('usuarios.listar')->with('success', 'Usuario actualizado exitosamente');
-  }
 
 
 
+    public function editar(Request $request, $id)
+    {
 
-  public function editar(Request $request, $id)
-  {
+        $usuarios = Usuario::findOrFail($id);
+        return view('/usuarios.UsuariosEditar', compact('usuarios'));
+    }
 
-    $usuarios = Usuario::findOrFail($id);
-    return view('EditarU', compact('usuarios'));
-  }
+    public function listar()
+    {
 
-  public function listar()
-  {
-    $usuario = Auth::user();
-    // Cargar usuarios
-    $usuarios = Usuario::all(); // Se obtienen todos los usuarios
+        $usuarioLogeado = Auth::user();
+        $usuarios = UsuarioService::listar(true);
 
-    // Pasar los usuarios a la vista
-    return view('usuarios', compact('usuarios', 'usuario'));
-  }
-  public function eliminar(Request $request, $id)
-  {
-    // Buscar al candidato por su ID
-    $usuarios = Usuario::findOrFail($id);
+        // Pasar los usuarios a la vista
+        return view('/usuarios.UsuariosGestor', compact('usuarios', 'usuarioLogeado'));
+    }
+    public function eliminar(Request $request, $id)
+    {
+        // Buscar al candidato por su ID
+        $usuarios = Usuario::findOrFail($id);
 
-    // Eliminar el candidato
-    $usuarios->delete();
+        // Eliminar el candidato
+        $usuarios->delete();
 
-    // Redirigir con un mensaje de éxito
-    return redirect()->route('usuarios.listar')->with('success', 'Usuario eliminado exitosamente');
-  }
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('usuarios.listar')->with('success', 'Usuario eliminado exitosamente');
+    }
 }
