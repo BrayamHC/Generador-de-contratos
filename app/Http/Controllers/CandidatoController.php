@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Candidato;
+use App\Services\CandidatosService;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -172,7 +173,7 @@ class CandidatoController extends Controller
     public function listar()
     {
         // Cargar candidatos
-        $candidatos = Candidato::all(); // Se obtienen todos los candidatos
+        $candidatos = CandidatosService::listar(true); // Se obtienen todos los candidatos
 
         // Pasar los candidatos a la vista
         return view('/candidatos.CandidatosGestor', compact('candidatos')); // Cambia 'usuarios' por 'candidatos.index'
