@@ -1,359 +1,289 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidatos</title>
-    <link rel="icon" href="{{ asset('Logo.ico') }}?v={{ time() }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Archivo CSS principal -->
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Tipografía moderna */
-            background: linear-gradient(135deg, #A9CCE3, #FFFDD0);
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            /* Ancho de la barra lateral */
-            background: #f0f0f0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            /* Permitir que los botones se apilen verticalmente */
-            justify-content: flex-start;
-            /* El contenido comienza desde la parte superior */
-        }
-
-        .sidebar h2 {
-            margin: 0 0 20px;
-        }
-
-        .logo {
-            display: block;
-            margin: 10px auto 20px;
-            /* Centrar el logo y agregar espaciado */
-            max-width: 150px;
-            /* Máximo ancho recomendado */
-            height: auto;
-            /* Mantener la proporción del logo */
-        }
-
-        .user-info {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 20px;
-            text-align: center;
-            /* Centrado del nombre de usuario */
-        }
-
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            /* Colocar botones en columna */
-            align-items: center;
-            /* Centrar los botones horizontalmente */
-            flex-grow: 1;
-            /* Para que tome el espacio disponible */
-            justify-content: flex-start;
-            /* Subir los botones un poco */
-            margin-top: 20px;
-            /* Ajuste del margen superior */
-        }
-
-        .sidebar button {
-            width: 80%;
-            /* Ancho del botón */
-            margin: 25px 0;
-            /* Separación vertical entre botones */
-            padding: 10px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            /* Bordes redondeados */
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-            /* Transición para suavizar efectos */
-        }
-
-        .sidebar button:hover {
-            background-color: #2980b9;
-            /* Color del botón al pasar el mouse */
-            transform: translateY(-2px);
-            /* Efecto de elevación */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Sombra al hacer hover */
-        }
-
-        .sidebar form button {
-            width: 80%;
-            margin-top: 20px;
-            /* Separación entre los botones y el botón de cerrar sesión */
-            padding: 10px;
-            background: #ff0019;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-            /* Transición para suavizar efectos */
-        }
-
-        .sidebar form button:hover {
-            background-color: #a10515;
-            /* Color al pasar el ratón sobre el botón */
-            transform: translateY(-2px);
-            /* Efecto de elevación */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Sombra al hacer hover */
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            font-size: 18px;
-            position: relative;
-            /* Para posicionar el botón "Agregar" */
-            overflow-y: auto;
-            /* Activa el desplazamiento vertical */
-            overflow-x: hidden;
-            /* Oculta cualquier desplazamiento horizontal */
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-            /* Asegura que no haya desplazamiento en la vista completa */
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        /* Animación para la tarjeta */
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .user-card {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            overflow-x: auto;
-            /* Habilitar desplazamiento horizontal si es necesario */
-            animation: fadeInUp 1s ease-out;
-
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        .acciones {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            text-align: center;
-        }
-
-        /* Estilo para los botones de acción */
-        .view-button,
-        .edit-button,
-        .delete-button {
-            width: 90%;
-            padding: 8px;
-            font-size: 14px;
-            border-radius: 25px;
-            color: white;
-            margin-bottom: 5px;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-
-        .view-button {
-            background-color: #007bff;
-        }
-
-        .edit-button {
-            background-color: #28a745;
-        }
-
-        .delete-button {
-            background-color: #dc3545;
-        }
-
-        .view-button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .edit-button:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .delete-button:hover {
-            background-color: #c82333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .acciones a {
-            margin-right: 10px;
-            color: #007bff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .acciones a:hover {
-            color: #0056b3;
-        }
-
-        /* Estilo para el botón Agregar */
-        .add-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-            /* Transición para suavizar efectos */
-        }
-
-        .add-button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <!-- Barra lateral -->
-        <aside class="sidebar">
-            <h2>Menú</h2>
-            <!-- Mostrar el logo -->
-            <img src="{{ asset('images/User.png') }}" alt="Logo" class="logo"> <!-- Ruta del logo -->
-            <!-- Mostrar información del usuario -->
-            <div class="user-info">
-                <strong>Usuario:</strong> {{ auth()->user()->usuario }} <!-- Muestra el nombre del usuario logueado -->
+@extends('layout.Layout')
+@section('contenido')
+@include('components.sidebarSistema')
+<div class="app" id='app'>
+    @include('components.headerGlobal')
+    <div class="contenido header-sidebar">
+        <div class="encabezado">
+            <span class="titulo" id="tituloModulo">Candidatos</span>
+            <div class="opciones">
+                <button @@click="abrirModalAgregarCandidato()" class="boton-primario">Agregar Candidato</button>
             </div>
-            <div class="button-container">
-                <button type="button" onclick="location.href='/usuarios'">Usuarios</button>
-                <!-- Navegación a la página de usuarios -->
-                <button type="button" onclick="location.href='/candidatos'">Candidatos</button>
-                <!-- Navegación a la página de candidatos -->
-            </div>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" id="logout-button">Cerrar sesión</button>
-            </form>
-        </aside>
-
-        <!-- Contenido principal -->
-        <main class="main-content">
-            <h2 style="text-align: center; font-size: 27px; color: #2c3e50; margin-bottom: 20px;">
-                Candidatos
-            </h2>
-            <!-- Botón para agregar candidato -->
-            <button class="add-button" onclick="location.href='/Registro/Candidato'">Agregar</button>
-            <!-- Redirige a la vista de registro -->
-            @if (session('success'))
-                <div class="alert alert-success"
-                    style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="user-card">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>Estatus</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($candidatos as $candidato)
-                            <tr>
-                                <td>{{ $candidato->nombre }}</td>
-                                <td>{{ $candidato->apellido_paterno }}</td>
-                                <td>{{ $candidato->apellido_materno }}</td>
-                                <td>{{ $candidato->status ?? 'N/A' }}</td>
-                                <!-- Ajusta según el campo de estatus correcto -->
-                                <td class="acciones">
-                                    <!-- Ver -->
-                                    <a
-                                        href="{{ route('candidatos.mostrar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}">
-                                        <button class="view-button">Ver</button>
-                                    </a>
-
-                                    <!-- Editar -->
-                                    <a
-                                        href="{{ route('candidatos.editar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}">
-                                        <button class="edit-button">Editar</button>
-                                    </a>
-
-                                    <!-- Eliminar -->
-                                    <form
-                                        action="{{ route('candidatos.eliminar', ['id' => $candidato->id, 'idsello' => substr(hash('sha256', $candidato->id . config('constants.URL_SALT')), -8)]) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('¿Estás seguro de eliminar a este candidato?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="delete-button">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-        </main>
+        </div>
+        <div class="main-content">
+            <div class="tabla-gestor">
+                <div id="dataGrid"></div>
+            </div>
+            <!-- MODALES -->
+            <!-- COMIENZA MODAL AGREGAR CANDIDATO -->
+            <template>
+                <div v-if="modalAgregarCandidato" class="modal" id="modalAgregarCandidato">
+                    <div class="modal-card" id="modalGenerar">
+                        <div class="modal-header">
+                            <label>Agregar Candidato</label>
+                        </div>
+                        <div style="overflow: auto;" class="modal-body">
+                            <form id="formAgregarCandidato" ref="formAgregarCandidato" action="{{ route(('candidatos.crear')) }}"
+                                method="POST" @@submit.prevent="onSubmit('formAgregarUsuario')">
+                                @csrf
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="candidato">Nombre</label>
+                                    <input type="text" name="candidato" placeholder="Nombre" required
+                                        id="inputCandidatoAgregar" value="{{ old('nombreCandidato') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoMaterno">Apellido Paterno</label>
+                                    <input type="text" name="apellidoMaterno" placeholder="Apellido Paterno" required
+                                        id="inputApAgregar" value="{{ old('apellidoMaterno') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoPaterno">Apellido Materno</label>
+                                    <input type="text" name="apellidoPaterno" placeholder="Apellido Materno" required
+                                        id="inputAmAgregar" value="{{ old('apellidoPaterno') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="rfc">RFC</label>
+                                    <input type="text" name="rfc" placeholder="RFC"
+                                        id="inputRfcAgregar" value="{{ old('rfc') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="curp">CURP</label>
+                                    <input type="text" name="curp" placeholder="CURP"
+                                        id="inputCurpAgregar" value="{{ old('curp') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="nss">NSS</label>
+                                    <input type="text" name="nss" placeholder="NSS"
+                                        id="inputNssAgregar" value="{{ old('nss') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="direccion1">Direccion 1</label>
+                                    <input type="text" name="direccion1" placeholder="Direccion 1"
+                                        id="inputDunoAgregar" value="{{ old('direccion1') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="direccion2">Direccion 2</label>
+                                    <input type="text" name="direccion1" placeholder="Direccion 2"
+                                        id="inputDireccionAgregar" value="{{ old('direccion2') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="estado">Estado</label>
+                                    <input type="text" name="estado" placeholder="Estado"
+                                        id="inputEstadoAgregar" value="{{ old('estado') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="ciudad">Ciudad</label>
+                                    <input type="text" name="cuidad" placeholder="Ciudad"
+                                        id="inputCiudadAgregar" value="{{ old('cuidad') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="CP">Código postal</label>
+                                    <input type="text" name="cp" placeholder="Código postal"
+                                        id="inputCpAgregar" value="{{ old('cp') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="pais">País</label>
+                                    <input type="text" name="cp" placeholder="País"
+                                        id="inputCpAgregar" value="{{ old('pais') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="puesto">Puesto</label>
+                                    <input type="text" name="puesto" placeholder="Puesto"
+                                        id="inputPuestoAgregar" value="{{ old('puesto') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="salarioDiario">Salario diario</label>
+                                    <input type="number" name="salarioDiario" placeholder="Salario diario"
+                                        id="inputSalarioAgregar" value="{{ old('salarioDiario') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="fechaIngreso">Fecha de ingreso</label>
+                                    <input type="date" name="fechaIngreso" placeholder="Fecha de ingreso"
+                                        id="dateIngreso" value="{{ old('fechaIngreso') }}" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="correoElectronico">Correo eléctronico</label>
+                                    <input type="email" name="correoElectronico" placeholder="Fecha de ingreso"
+                                        id="inputCorreoAgregar" value="{{ old('correoElectronico') }}" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @@click="cerrarModalAgregarCandidato()" id="btnCancelarAgregar">Cancelar</button>
+                            <button type="submit" class="boton-primario" form="formAgregarCandidato"
+                                id="btnGuardarAgregar">Registrar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-background"></div>
+                </div>
+            </template>
+            <!-- TERMINA MODAL AGREGAR USUARIO -->
+        </div>
     </div>
-</body>
+</div>
 
-</html>
+<script id="opcionesTemplate" type="text/x-template">
+    <div class="celda-acciones-gestor">
+        @if (auth()->user()->superusuario)
+            <a title="Editar">Editar</a>
+            <a title="Eliminar">Eliminar</a>
+        @else
+            <a>Permisos necesarios</a>
+        @endif
+    </div>
+</script>
+<!-- VUE -->
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            usuarioLogueado: {},
+            Datasource: [],
+            modalAgregarCandidato: false,
+            modalEditarCandidato: false,
+            modalEliminarCandidato: false,
+            modalVerCandidato: false,
+            test: JSON.parse('{!! json_encode($candidatos) !!}'),
+            columnas: [{
+                field: 'nombreCandidato',
+                type: 'string',
+                textAling: 'Left',
+                headerText: 'Candidato',
+                required: true
+            }, {
+                field: 'apellidoMaterno',
+                type: 'string',
+                textAling: 'left',
+                headerText: 'Apellido Materno',
+                required: true
+            }, {
+                field: 'apellidoPaterno',
+                type: 'string',
+                textAling: 'left',
+                headerText: 'Apellido Paterno',
+                required: true
+            }, {
+                field: 'estatus',
+                type: 'string',
+                textAling: 'left',
+                headerText: 'Estatus',
+                required: true
+            }, {
+                headerText: 'Acciones',
+                width: 96,
+                minWidth: 80,
+                textAlign: 'Center',
+                allowFiltering: false,
+                showInColumnChooser: false,
+                allowResizing: false,
+                template: '#opcionesTemplate'
+            }, ]
+        },
+        mounted() {
+            this.cargaInicial();
+        },
+        methods: {
+            cargaInicial() {
+                this.renderDataGrid();
+            },
+            async renderDataGrid() {
+
+                // Se limpian datos de grid
+                let div = document.getElementById("dataGrid");
+                div.innerHTML = "";
+
+                // Se injectan dependencias de syncfusion
+                ej.grids.Grid.Inject(
+                    ej.grids.Page,
+                    ej.grids.Sort,
+                    ej.grids.Resize,
+                    ej.grids.Reorder,
+                    ej.grids.Toolbar,
+                    ej.grids.ColumnChooser
+                );
+                const dataSource = JSON.parse(JSON.stringify(this.test)); // Copia profunda
+                console.log(dataSource);
+                // Se arma objeto dataGrid
+                var grid = new ej.grids.Grid({
+                    height: '100%',
+                    gridLines: 'Row',
+                    dataSource: dataSource,
+                    columns: this.columnas,
+                    allowPaging: true,
+                    allowSorting: true,
+                    allowResizing: true,
+                    allowReordering: true,
+                    allowColumnChooser: true,
+                    showColumnChooser: true,
+                    pageSettings: {
+                        pageSize: 50
+                    },
+                    toolbar: ['ColumnChooser'],
+                    dataBound: () => {
+                        grid.hideScroll();
+                    },
+                    recordClick: (args) => {
+                        if (args.target.classList.contains('accionEditar')) {
+                            var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute(
+                                'data-uid'));
+                            this.abrirModalEditarUsuario(rowObj3.data);
+                        }
+                        if (args.target.classList.contains('accionEliminar')) {
+                            var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute(
+                                'data-uid'));
+                            this.abrirModalEliminarUsuario(rowObj3.data);
+                        }
+                    }
+                });
+
+                // Se agrega datagrid
+                grid.appendTo('#dataGrid');
+            },
+            renderearDatePicker() {
+                var _this = this; // Guardar el contexto de 'this' para usar dentro de las funciones
+
+                // Inicializa el DatePicker para la fecha inicial
+                var datepicker = new ej.calendars.DatePicker({
+                    placeholder: "Elige una fecha",
+                    start: 'Month',
+                    depth: 'Month',
+                    format: 'dd/MM/yyyy',
+                    change: function(args) {
+                        // Convierte la fecha seleccionada a formato 'Y-m-d'
+                        const fechaInicio = new Date(args.value);
+                        _this.fechaInicio = fechaInicio.toISOString().split('T')[0];
+
+                        // Actualiza las fechas mínima y máxima permitidas para el DatePicker final
+                        const minFechaFin = new Date(fechaInicio);
+                        const maxFechaFin = new Date(fechaInicio);
+                        maxFechaFin.setFullYear(maxFechaFin.getFullYear() + 7); // Agrega 7 años a la fecha inicial
+                    }
+                });
+
+                // Renderiza el DatePicker para la fecha inicial
+                datepicker.appendTo('#dateIngreso');
+            },
+            abrirModalAgregarCandidato() {
+                this.modalAgregarCandidato = true;
+                this.$nextTick(() => {
+                    this.renderearDatePicker();
+                });
+            },
+            cerrarModalAgregarCandidato() {
+                this.modalAgregarCandidato = false;
+            },
+            onSubmit(formulario) {
+                // Capturar el formulario correcto basado en el parámetro
+                const form = this.$refs[formulario];
+
+                form.submit();
+            }
+        }
+    });
+    window.app = app;
+</script>
+@endsection
