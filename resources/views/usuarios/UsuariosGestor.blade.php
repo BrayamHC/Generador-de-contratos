@@ -30,32 +30,32 @@
                             <form id="formAgregarUsuario" ref="formAgregarUsuario" action="{{ route(('usuarios.crear')) }}"
                                 method="POST" @@submit.prevent="onSubmit('formAgregarUsuario')">
                                 @csrf
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="usuario">Usuario</label>
                                     <input type="text" name="usuario" placeholder="Usuario" required maxlength="80"
                                         id="inputUsuarioAgregar" value="{{ old('nombreUsuario') }}" />
                                 </div>
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="correo">Correo</label>
                                     <input type="email" name="correo" placeholder="Correo" required
                                         id="inputCorreoAgregar" value="{{ old('correo') }}" />
                                 </div>
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="nombre_completo">Nombre completo</label>
                                     <input type="text" name="nombre_completo" placeholder="Nombre completo" required
                                         id="inputNombreAgregar" value="{{ old('nombre_completo') }}" />
                                 </div>
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="password">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña" required
                                         id="inputContraseñaAgregar" />
                                 </div>
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="password_confirmation">Confirmar contraseña</label>
                                     <input type="password" name="password_confirmation" placeholder="Confirmar contraseña" required
                                         id="inputConfContraseñaAgregar" />
                                 </div>
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="superusuario">SuperUsuario</label>
                                     <select id="superusuario" name="superusuario" required>
                                         <option value="0">No</option>
@@ -87,27 +87,27 @@
                                 ref="formEditarUsuario" method="POST" @@submit.prevent="onSubmit('formEditarUsuario')">
                                 @csrf
                                 @method('PATCH')
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="usuario">Usuario</label>
                                     <input type="text" name="usuario" placeholder="Usuario" required maxlength="80"
                                         v-model="Datasource.nombreUsuario" id="inputUsuarioAgregar" />
                                 </div>
-                                <div>
+                                <div  style="text-align: left;">
                                     <label class="requerido" for="correo">Correo eléctronico</label>
                                     <input type="email" name="correo" placeholder="Correo" required
                                         v-model="Datasource.correoUsuario" id="inputCorreoAgregar" />
                                 </div>
-                                <div>
-                                    <label class="requerido" for="nombre_completo">Nombre completo</label>
+                                <div  style="text-align: left;">
+                                    <label style="text-align: left;" class="requerido" for="nombre_completo">Nombre completo</label>
                                     <input type="text" name="nombre_completo" placeholder="Nombre completo" required
                                         v-model="Datasource.nombreCompletoUsuario" id="inputNombreAgregar" />
                                 </div>
-                                <div>
-                                    <label class="requerido" for="password">Contraseña</label>
+                                <div  style="text-align: left;">
+                                    <label  class="requerido" for="password">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña"
                                         id="inputContraseñaAgregar" />
                                 </div>
-                                <div>
+                                <div style="text-align: left;">
                                     <label class="requerido" for="password_confirmation">Confirmar contraseña</label>
                                     <input type="password" name="password_confirmation" placeholder="Confirmar contraseña"
                                         id="inputConfContraseñaAgregar" />
