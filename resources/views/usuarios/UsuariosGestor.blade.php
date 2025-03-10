@@ -7,9 +7,9 @@
         <div class="encabezado">
             <span class="titulo" id="tituloModulo">Usuarios</span>
             <div class="opciones">
-            @if (auth()->user()->superusuario)
+                @if (auth()->user()->superusuario)
                 <button class="boton-primario" @@click="abrirModalAgregarUsuario">Agregar Usuario</button>
-            @endif
+                @endif
             </div>
             <div class="user-card">
             </div>
@@ -92,18 +92,18 @@
                                     <input type="text" name="usuario" placeholder="Usuario" required maxlength="80"
                                         v-model="Datasource.nombreUsuario" id="inputUsuarioAgregar" />
                                 </div>
-                                <div  style="text-align: left;">
+                                <div style="text-align: left;">
                                     <label class="requerido" for="correo">Correo eléctronico</label>
                                     <input type="email" name="correo" placeholder="Correo" required
                                         v-model="Datasource.correoUsuario" id="inputCorreoAgregar" />
                                 </div>
-                                <div  style="text-align: left;">
+                                <div style="text-align: left;">
                                     <label style="text-align: left;" class="requerido" for="nombre_completo">Nombre completo</label>
                                     <input type="text" name="nombre_completo" placeholder="Nombre completo" required
                                         v-model="Datasource.nombreCompletoUsuario" id="inputNombreAgregar" />
                                 </div>
-                                <div  style="text-align: left;">
-                                    <label  class="requerido" for="password">Contraseña</label>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="password">Contraseña</label>
                                     <input type="password" name="password" placeholder="Contraseña"
                                         id="inputContraseñaAgregar" />
                                 </div>
