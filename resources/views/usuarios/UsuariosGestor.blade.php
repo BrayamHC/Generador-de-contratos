@@ -7,7 +7,9 @@
         <div class="encabezado">
             <span class="titulo" id="tituloModulo">Usuarios</span>
             <div class="opciones">
+            @if (auth()->user()->superusuario)
                 <button class="boton-primario" @@click="abrirModalAgregarUsuario">Agregar Usuario</button>
+            @endif
             </div>
             <div class="user-card">
             </div>
