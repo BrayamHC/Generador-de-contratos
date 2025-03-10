@@ -26,7 +26,7 @@
                         </div>
                         <div class="modal-body">
                             <form id="formAgregarUsuario" ref="formAgregarUsuario" action="{{ route(('usuarios.crear')) }}"
-                                method="POST" @@submit.prevent="onSubmit">
+                                method="POST" @@submit.prevent="onSubmit('formAgregarUsuario')">
                                 @csrf
                                 <div>
                                     <label class="requerido" for="usuario">Usuario</label>
@@ -81,8 +81,8 @@
                             <label>Editar Usuario</label>
                         </div>
                         <div class="modal-body">
-                            <form id="formEditarUsuario" ref="formEditarUsuario"
-                                method="POST" @@submit.prevent="onSubmit">
+                            <form :action="'{{ route('usuarios.actualizar', '') }}/' + Datasource.usuarioId" id="formEditarUsuario"
+                                ref="formEditarUsuario" method="POST" @@submit.prevent="onSubmit('formEditarUsuario')">
                                 @csrf
                                 @method('PATCH')
                                 <div>
@@ -102,19 +102,19 @@
                                 </div>
                                 <div>
                                     <label class="requerido" for="password">Contraseña</label>
-                                    <input type="password" name="password" placeholder="Contraseña" required
+                                    <input type="password" name="password" placeholder="Contraseña"
                                         id="inputContraseñaAgregar" />
                                 </div>
                                 <div>
                                     <label class="requerido" for="password_confirmation">Confirmar contraseña</label>
-                                    <input type="password" name="password_confirmation" placeholder="Confirmar contraseña" required
+                                    <input type="password" name="password_confirmation" placeholder="Confirmar contraseña"
                                         id="inputConfContraseñaAgregar" />
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button @@click="cerrarModalEditarUsuario()" id="btnCancelarEditar">Cancelar</button>
-                            <button type="submit" class="boton-primario" form="formAgregarUsuario"
+                            <button type="submit" class="boton-primario" form="formEditarUsuario"
                                 id="btnGuardarAgregar">Confirmar cambios
                             </button>
                         </div>
@@ -133,9 +133,10 @@
                                 id="btnCerrarModalEliminar"></i>
                         </div>
                         <div class="modal-body">
-                            <form id="formEliminarEmpresa" ref="formEliminarEmpresa"
+                            <form :action="'{{ route('usuarios.eliminar', '') }}/' + Datasource.usuarioId" id="formEliminarUsuario" ref="formEliminarUsuario"
                                 method="POST">
                                 @csrf
+                                @method('DELETE')
                                 <input name="usuarioIdEliminar" type="hidden" v-model="Datasource.usuarioId"
                                     id="inputUsuarioIdEliminar">
                                 <i class="icon-ol-eliminar"></i>
@@ -149,7 +150,7 @@
                         <div class="modal-footer">
                             <button @@click="cerrarModalEliminarUsuario" type="button"
                                 id="btnCancelarEliminar">Cancelar</button>
-                            <button type="submit" class="boton-cancelacion" form="formEliminarUsuario"
+                            <button type="submit" class="boton-cancelacion" form="formEliminarUsuario" @@click.prevent="onSubmit('formEliminarUsuario')"
                                 id="btnConfirmarEliminar">Eliminar</button>
                         </div>
                     </div>
@@ -309,13 +310,10 @@
             cerrarModalEliminarUsuario() {
                 this.modalEliminarUsuario = false;
             },
-            onSubmit() {
-                // Capturar el formulario
-                const form = this.$refs.formAgregarUsuario;
+            onSubmit(formulario) {
+                // Capturar el formulario correcto basado en el parámetro
+                const form = this.$refs[formulario];
 
-                if (!form) {
-                    return;
-                }
                 form.submit();
             }
         }
