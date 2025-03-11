@@ -332,8 +332,8 @@ form label {
 .login .login-card input[type="text"],
 .login .login-card input[type="password"] {
     display: block;
-    width: 100%;
-    height: 36px;
+    width: 95%;
+    height: 28px;
     border: 1px solid #dee1e6;
     border-radius: 2px;
 }
