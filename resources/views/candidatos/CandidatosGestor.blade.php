@@ -216,8 +216,11 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="salarioDiario">Salario diario</label>
-                                    <input type="number" name="salario_diario" placeholder="Salario diario"
-                                        v-model="Datasource.salarioDiario" id="inputSalarioAgregar" />
+                                    <input type="text" name="salario_diario" placeholder="Salario diario"
+                                        v-model="Datasource.salarioDiario"
+                                        id="inputSalarioAgregar"
+                                        @input="actualizarSalario"
+                                        :value="formatearSalario(Datasource.salarioDiario)" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="fechaIngreso">Fecha de ingreso</label>
@@ -478,7 +481,24 @@
             buscarCandidato() {
                 this.$el.querySelector('form').submit();
             },
+            // Formatea el salario a formato monetario
+            formatearSalario(salario) {
+                if (!salario) return ''; // Si no hay valor, retorna vacío
+                return salario.toLocaleString('es-MX', {
+                    style: 'currency',
+                    currency: 'MXN'
+                });
+            },
 
+            // Elimina los caracteres no numéricos al guardar el valor
+            quitarFormatoSalario(salario) {
+                return salario.replace(/[^0-9.-]+/g, ''); // Elimina cualquier cosa que no sea número o punto
+            },
+
+            // Método de cuando el valor cambia en el input
+            actualizarSalario() {
+                this.Datasource.salarioDiario = this.quitarFormatoSalario(this.Datasource.salarioDiario);
+            }
         }
     });
     window.app = app;
