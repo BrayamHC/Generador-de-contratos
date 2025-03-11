@@ -41,83 +41,83 @@
                                 @csrf
                                 <div style="text-align: left;">
                                     <label class="requerido" for="candidato">Nombre</label>
-                                    <input type="text" name="candidato" placeholder="Nombre" required
-                                        id="inputCandidatoAgregar" value="{{ old('nombreCandidato') }}" />
+                                    <input type="text" name="nombre" placeholder="Nombre" required
+                                        id="inputCandidatoAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label class="requerido" for="apellidoMaterno">Apellido Paterno</label>
-                                    <input type="text" name="apellidoMaterno" placeholder="Apellido Paterno" required
-                                        id="inputApAgregar" value="{{ old('apellidoMaterno') }}" />
+                                    <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" required
+                                        id="inputApAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label class="requerido" for="apellidoPaterno">Apellido Materno</label>
-                                    <input type="text" name="apellidoPaterno" placeholder="Apellido Materno" required
-                                        id="inputAmAgregar" value="{{ old('apellidoPaterno') }}" />
+                                    <input type="text" name="apellido_materno" placeholder="Apellido Materno" required
+                                        id="inputAmAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="rfc">RFC</label>
                                     <input type="text" name="rfc" placeholder="RFC"
-                                        id="inputRfcAgregar" value="{{ old('rfc') }}" />
+                                        id="inputRfcAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="curp">CURP</label>
                                     <input type="text" name="curp" placeholder="CURP"
-                                        id="inputCurpAgregar" value="{{ old('curp') }}" />
+                                        id="inputCurpAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="nss">NSS</label>
                                     <input type="text" name="nss" placeholder="NSS"
-                                        id="inputNssAgregar" value="{{ old('nss') }}" />
+                                        id="inputNssAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="direccion1">Direccion 1</label>
                                     <input type="text" name="direccion1" placeholder="Direccion 1"
-                                        id="inputDunoAgregar" value="{{ old('direccion1') }}" />
+                                        id="inputDunoAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="direccion2">Direccion 2</label>
-                                    <input type="text" name="direccion1" placeholder="Direccion 2"
-                                        id="inputDireccionAgregar" value="{{ old('direccion2') }}" />
+                                    <input type="text" name="direccion2" placeholder="Direccion 2"
+                                        id="inputDireccionAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="estado">Estado</label>
                                     <input type="text" name="estado" placeholder="Estado"
-                                        id="inputEstadoAgregar" value="{{ old('estado') }}" />
+                                        id="inputEstadoAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="ciudad">Ciudad</label>
-                                    <input type="text" name="cuidad" placeholder="Ciudad"
-                                        id="inputCiudadAgregar" value="{{ old('cuidad') }}" />
+                                    <input type="text" name="ciudad" placeholder="Ciudad"
+                                        id="inputCiudadAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="CP">Código postal</label>
                                     <input type="text" name="cp" placeholder="Código postal"
-                                        id="inputCpAgregar" value="{{ old('cp') }}" />
+                                        id="inputCpAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="pais">País</label>
-                                    <input type="text" name="cp" placeholder="País"
-                                        id="inputCpAgregar" value="{{ old('pais') }}" />
+                                    <input type="text" name="pais" placeholder="País"
+                                        id="inputCpAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="puesto">Puesto</label>
                                     <input type="text" name="puesto" placeholder="Puesto"
-                                        id="inputPuestoAgregar" value="{{ old('puesto') }}" />
+                                        id="inputPuestoAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="salarioDiario">Salario diario</label>
-                                    <input type="number" name="salarioDiario" placeholder="Salario diario"
-                                        id="inputSalarioAgregar" value="{{ old('salarioDiario') }}" />
+                                    <input type="number" name="salario_diario" placeholder="Salario diario"
+                                        id="inputSalarioAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="fechaIngreso">Fecha de ingreso</label>
-                                    <input type="date" name="fechaIngreso" placeholder="Fecha de ingreso"
-                                        id="dateIngreso" value="{{ old('fechaIngreso') }}" />
+                                    <input type="date" name="fecha_ingreso" placeholder="Fecha de ingreso"
+                                        id="dateIngreso" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="correoElectronico">Correo eléctronico</label>
-                                    <input type="email" name="correoElectronico" placeholder="Fecha de ingreso"
-                                        id="inputCorreoAgregar" value="{{ old('correoElectronico') }}" />
+                                    <input type="email" name="correo_electronico" placeholder="Fecha de ingreso"
+                                        id="inputCorreoAgregar" />
                                 </div>
                             </form>
                         </div>
@@ -140,23 +140,23 @@
                             <label>Editar Candidato</label>
                         </div>
                         <div style="overflow: auto;" class="modal-body">
-                            <form id="formEditarCandidato" ref="formEditarCandidato" :action="'{{ route('candidatos.actualizar', '') }}/' + Datasource.candidatoId"
-                                method="POST" @@submit.prevent="onSubmit('formEditarCandidato')">
+                            <form :action="'{{ route('candidatos.actualizar', '') }}/' + Datasource.candidatoId" id="formEditarCandidato"
+                                ref="formEditarCandidato" method="POST" @@submit.prevent="onSubmit('formEditarCandidato')">
                                 @csrf
                                 @method('PATCH')
                                 <div style="text-align: left;">
                                     <label class="requerido" for="candidato">Nombre</label>
-                                    <input type="text" name="candidato" placeholder="Nombre" required
+                                    <input type="text" name="nombre" placeholder="Nombre" required
                                         v-model="Datasource.nombreCandidato" id="inputCandidatoAgregar" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="apellidoMaterno">Apellido Paterno</label>
-                                    <input type="text" name="apellidoMaterno" placeholder="Apellido Paterno" required
+                                    <label class="requerido" for="apellidoPaterno">Apellido Paterno</label>
+                                    <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" required
                                         v-model="Datasource.apellidoMaterno" id="inputApAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label class="requerido" for="apellidoPaterno">Apellido Materno</label>
-                                    <input type="text" name="apellidoPaterno" placeholder="Apellido Materno" required
+                                    <input type="text" name="apellido_materno" placeholder="Apellido Materno" required
                                         v-model="Datasource.apellidoPaterno" id="inputAmAgregar" />
                                 </div>
                                 <div style="text-align: left;">
@@ -186,7 +186,7 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="direccion2">Direccion 2</label>
-                                    <input type="text" name="direccion1" placeholder="Direccion 2"
+                                    <input type="text" name="direccion2" placeholder="Direccion 2"
                                         v-model="Datasource.direccion2" id="inputDireccionAgregar" />
                                 </div>
                                 <div style="text-align: left;">
@@ -196,7 +196,7 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="ciudad">Ciudad</label>
-                                    <input type="text" name="cuidad" placeholder="Ciudad"
+                                    <input type="text" name="ciudad" placeholder="Ciudad"
                                         v-model="Datasource.ciudad" id="inputCiudadAgregar" />
                                 </div>
                                 <div style="text-align: left;">
@@ -206,7 +206,7 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="pais">País</label>
-                                    <input type="text" name="cp" placeholder="País"
+                                    <input type="text" name="pais" placeholder="País"
                                         v-model="Datasource.pais" id="inputCpAgregar" />
                                 </div>
                                 <div style="text-align: left;">
@@ -216,24 +216,24 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="salarioDiario">Salario diario</label>
-                                    <input type="number" name="salarioDiario" placeholder="Salario diario"
+                                    <input type="number" name="salario_diario" placeholder="Salario diario"
                                         v-model="Datasource.salarioDiario" id="inputSalarioAgregar" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="fechaIngreso">Fecha de ingreso</label>
-                                    <input type="date" name="fechaIngreso" placeholder="Fecha de ingreso"
+                                    <input type="text" name="fecha_ingreso" placeholder="Fecha de ingreso"
                                         v-model="Datasource.fechaIngreso" id="dateIngreso" />
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="correoElectronico">Correo eléctronico</label>
-                                    <input type="email" name="correoElectronico" placeholder="Fecha de ingreso"
+                                    <input type="email" name="correo_electronico" placeholder="Fecha de ingreso"
                                         v-model="Datasource.correoElectronico" id="inputCorreoAgregar" />
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button @@click="cerrarModalEditarCandidato()" id="btnCancelarAgregar">Cancelar</button>
-                            <button type="submit" class="boton-primario" form="formAgregarCandidato"
+                            <button type="submit" class="boton-primario" form="formEditarCandidato"
                                 id="btnGuardarAgregar">Registrar
                             </button>
                         </div>
@@ -242,6 +242,8 @@
                 </div>
             </template>
             <!-- TERMINA MODAL EDITAR CANDIDATO -->
+            <!-- TERMINA MODAL ELIMINAR CANDIDATO -->
+
         </div>
     </div>
 </div>
