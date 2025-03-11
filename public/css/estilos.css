@@ -1466,7 +1466,7 @@ i.buscar {
 /************************ ENCABEZADO SIN EMPRESA ************************/
 .encabezado {
     height: 70px;
-    width: 95%;
+    width: 98%;
     display: flex;
     flex-direction: row;
     align-items: center;
