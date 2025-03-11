@@ -249,11 +249,6 @@
             <template>
                 <div v-if="modalEliminarCandidato" class="modal" id="modalEditarCandidato">
                     <div class="modal-card modal-eliminar">
-                        <div class="modal-header">
-                            <div></div>
-                            <i class="icon-ol-cerrar"
-                                id="btnCerrarModalEliminar"></i>
-                        </div>
                         <div class="modal-body">
                             <form :action="'{{ route('candidatos.eliminar', '') }}/' + Datasource.candidatoId" id="formEliminarCandidato" ref="formEliminarCandidato"
                                 method="POST">
@@ -288,7 +283,7 @@
                         </div>
                         <div class="encabezado">
                             <i class="icon-ol-empresa logo"></i>
-                            <label id="labelRazonSocialCandidatoDetalle">@{{ Datasource.nombreCandidato }}</label>
+                            <label id="labelNombreCandidatoDetalle">@{{ nombreCompleto }}</label>
                             <div class="opciones">
                                 <template>
                                     <i class="icon-ol-editar opcion" @@click="modalEditarCandidato = true"
@@ -367,18 +362,6 @@
                                         <td id="labelCorreoDetalle">@{{ Datasource.correoElectronico }}</td>
                                     </tr>
                                 </tbody>
-                            </table>
-                        </div>
-                        <div class="datos-generales">
-                            <label class="titulo"> Usuarios asociados </label>
-                            <table class="tabla-detalle" id="tablaUsuariosAsociados">
-                                <thead>
-                                    <tr>
-                                        <th class="w6p"></th>
-                                        <th class="w30p align-left">Nombre corto</th>
-                                        <th class="align-left"> Usuario</th>
-                                    </tr>
-                                </thead>
                             </table>
                         </div>
                     </div>
@@ -587,6 +570,11 @@
             abrirModalDetalleCandidato(candidato) {
                 this.modalDetalleCandidato = true;
                 this.Datasource = candidato;
+                // Asegurarse de que la fecha se muestre correctamente
+                if (candidato.fechaIngreso) {
+                    // Formateamos la fecha en formato 'Y-m-d'
+                    candidato.fechaIngreso = this.formatearFecha(candidato.fechaIngreso);
+                }
             },
             cerrarModalDetalleCandidato() {
                 this.modalDetalleCandidato = false;
