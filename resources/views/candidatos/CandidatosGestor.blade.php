@@ -280,6 +280,111 @@
                 </div>
             </template>
             <!-- FINALIZA MODAL ELIMINAR CANDIDATO -->
+            <!-- INICIA MODAL VER CANDIDATO -->
+            <template>
+                <div v-if="modalDetalleCandidato" class="modal modal-detalle" id="modalDetalleCandidato">
+                    <div class="modal-card modal-detalle">
+                        <div class="header-modal">
+                        </div>
+                        <div class="encabezado">
+                            <i class="icon-ol-empresa logo"></i>
+                            <label id="labelRazonSocialCandidatoDetalle">@{{ Datasource.nombreCandidato }}</label>
+                            <div class="opciones">
+                                <template>
+                                    <i class="icon-ol-editar opcion" @@click="modalEditarCandidato = true"
+                                        id="opcEditarEmpresa"></i>
+                                    <i class="icon-ol-eliminar" @@click="modalEliminarCandidato = true"
+                                        id="opcEliminarEmpresa"></i>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="datos-generales">
+                            <label class="titulo"> Datos generales </label>
+                            <table class="tabla-detalle">
+                                <tbody>
+                                    <tr>
+                                        <td class="w30p">Nombre</td>
+                                        <td id="labelNombreTablaDetalle">@{{ Datasource.nombreCandidato }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Apellido Paterno</td>
+                                        <td id="labelApDetalle">@{{ Datasource.apellidoPaterno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Apellido Materno</td>
+                                        <td id="labelApDetalle">@{{ Datasource.apellidoMaterno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Status</td>
+                                        <td id="labelEstatusDetalle">@{{ Datasource.estatus }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">RFC</td>
+                                        <td id="labelRfcDetalle">@{{ Datasource.rfc }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">CURP</td>
+                                        <td id="labelCurpDetalle">@{{ Datasource.curp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">NSS</td>
+                                        <td id="labelNssDetalle">@{{ Datasource.curp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Dirección 1</td>
+                                        <td id="labelDirDetalle">@{{ Datasource.direccion1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Dirección 2</td>
+                                        <td id="labelDireccionDetalle">@{{ Datasource.direccion2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Estado</td>
+                                        <td id="labelEstadoDetalle">@{{ Datasource.estado }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Ciudad</td>
+                                        <td id="labelCiudadDetalle">@{{ Datasource.ciudad }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Código postal</td>
+                                        <td id="labelCpDetalle">@{{ Datasource.cp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">País</td>
+                                        <td id="labelPaisDetalle">@{{ Datasource.pais }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Salario diario</td>
+                                        <td id="labelSalarioDetalle">@{{ Datasource.salarioDiario }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Fecha ingreso</td>
+                                        <td id="labelFechaIngresoDetalle">@{{ Datasource.fechaIngreso }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Correo eléctronico</td>
+                                        <td id="labelCorreoDetalle">@{{ Datasource.correoElectronico }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="datos-generales">
+                            <label class="titulo"> Usuarios asociados </label>
+                            <table class="tabla-detalle" id="tablaUsuariosAsociados">
+                                <thead>
+                                    <tr>
+                                        <th class="w6p"></th>
+                                        <th class="w30p align-left">Nombre corto</th>
+                                        <th class="align-left"> Usuario</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-background" @@click="cerrarModalDetalleCandidato"></div>
+                </div>
+            </template>
         </div>
     </div>
 </div>
@@ -290,6 +395,13 @@
             <a class="accionEliminar" title="Eliminar">Eliminar</a>
     </div>
 </script>
+@verbatim
+<script type="text/x-jsrender" id="link-detalle">
+    <a href="javascript:void(0);" class="link-detalle">
+    @{{ Datasource.nombreCandidato }
+    </a>
+</script>
+@endverbatim
 <!-- VUE -->
 
 <script>
@@ -302,14 +414,17 @@
             modalAgregarCandidato: false,
             modalEditarCandidato: false,
             modalEliminarCandidato: false,
-            modalVerCandidato: false,
+            modalDetalleCandidato: false,
             test: JSON.parse('{!! json_encode($candidatos) !!}'),
             columnas: [{
                 field: 'nombreCandidato',
                 textAlign: 'Left',
                 type: 'string',
                 headerText: 'Candidato',
-                requerido: true
+                requerido: true,
+                template: function(args) {
+                    return '<a href="javascript:void(0);" class="link-detalle">' + args.nombreCandidato + '</a>';
+                }
             }, {
                 field: 'apellidoPaterno',
                 textAlign: 'Left',
@@ -386,18 +501,20 @@
                     dataBound: () => {
                         grid.hideScroll();
                     },
+
                     recordClick: (args) => {
+                        var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute('data-uid'));
+
                         if (args.target.classList.contains('accionEditar')) {
-                            var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute(
-                                'data-uid'));
                             this.abrirModalEditarCandidato(rowObj3.data);
-                        }
-                        if (args.target.classList.contains('accionEliminar')) {
-                            var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute(
-                                'data-uid'));
+                        } else if (args.target.classList.contains('accionEliminar')) {
                             this.abrirModalEliminarCandidato(rowObj3.data);
+                        } else if (args.target.classList.contains('link-detalle') || args.target.classList.contains('link-detalle')) {
+                            this.abrirModalDetalleCandidato(rowObj3.data);
                         }
                     }
+
+
                 });
 
                 // Se agrega datagrid
@@ -466,6 +583,13 @@
             },
             cerrarModalEliminarCandidato() {
                 this.modalEliminarCandidato = false;
+            },
+            abrirModalDetalleCandidato(candidato) {
+                this.modalDetalleCandidato = true;
+                this.Datasource = candidato;
+            },
+            cerrarModalDetalleCandidato() {
+                this.modalDetalleCandidato = false;
             },
             onSubmit(formulario) {
                 // Capturar el formulario correcto basado en el parámetro
