@@ -413,7 +413,7 @@
                     placeholder: "Elige una fecha",
                     start: 'Month',
                     depth: 'Month',
-                    format: 'dd/MM/yyyy',
+                    format: 'yyyy-MM-dd',
                     change: function(args) {
                         // Convierte la fecha seleccionada a formato 'Y-m-d'
                         const fechaInicio = new Date(args.value);
