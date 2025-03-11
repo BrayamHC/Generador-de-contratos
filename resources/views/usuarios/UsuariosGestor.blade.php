@@ -11,9 +11,20 @@
                 <button class="boton-primario" @@click="abrirModalAgregarUsuario">Agregar Usuario</button>
                 @endif
             </div>
-            <div class="user-card">
-            </div>
         </div>
+        <form method="GET" class="filtros" id="formFiltros">
+            <div class="input-con-icono-contenedor">
+                <input style="height:20px;" type="text" placeholder="Buscar" class="input-con-icono-derecha" name="busqueda"
+                    value="{{ $filtros['busqueda'] ?? '' }}" id="inputBusquedaFiltros">
+                <span class="icono-input-derecha">
+                    <i class="icon-ol-buscar buscar" @@click="buscarUsuario" id="btnBuquedaUsuario"></i>
+                </span>
+            </div>
+            <button style="margin-left: 45px;" class="boton-primario" id="btnBuscarUsuario">Buscar</button>
+            <a href="{{ route('usuarios.listar') }}" class="boton boton-limpiar" id="btnLimpiarBusquedaUsuarios"><button
+                    class="boton-secundario" type="button">Limpiar</button>
+            </a>
+        </form>
         <div class="main-content">
             <div class="tabla-gestor">
                 <div id="dataGrid"></div>
@@ -317,7 +328,10 @@
                 const form = this.$refs[formulario];
 
                 form.submit();
-            }
+            },
+            buscarUsuario() {
+                this.$el.querySelector('form').submit();
+            },
         }
 
     });
