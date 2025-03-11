@@ -371,7 +371,6 @@
                     ej.grids.ColumnChooser
                 );
                 const dataSource = JSON.parse(JSON.stringify(this.test)); // Copia profunda
-                console.log(dataSource);
                 // Se arma objeto dataGrid
                 var grid = new ej.grids.Grid({
                     height: '100%',
