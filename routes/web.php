@@ -55,7 +55,7 @@ Route::get('/candidatos/{id}', [CandidatoController::class, 'mostrar'])->middlew
 //Ruta para ver editar candidato
 Route::get('/candidatos/editar/{id}', [CandidatoController::class, 'editar'])->middleware('auth')->name('candidatos.editar');
 //Ruta que manda para actualizar el candidato
-Route::patch('/candidatos/{id}/editar', [CandidatoController::class, 'actualizar'])->middleware('auth')->name('candidatos.actualizar');
+Route::patch('/candidatos/{id}', [CandidatoController::class, 'actualizar'])->middleware('auth')->name('candidatos.actualizar');
 //Ruta para eliminar candidato
 Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->middleware('auth')->name('candidatos.eliminar');
 
