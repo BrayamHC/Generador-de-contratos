@@ -242,8 +242,41 @@
                 </div>
             </template>
             <!-- TERMINA MODAL EDITAR CANDIDATO -->
-            <!-- TERMINA MODAL ELIMINAR CANDIDATO -->
-
+            <!-- COMIENZA MODAL ELIMINAR CANDIDATO -->
+            <template>
+                <div v-if="modalEliminarCandidato" class="modal" id="modalEditarCandidato">
+                    <div class="modal-card modal-eliminar">
+                        <div class="modal-header">
+                            <div></div>
+                            <i class="icon-ol-cerrar"
+                                id="btnCerrarModalEliminar"></i>
+                        </div>
+                        <div class="modal-body">
+                            <form :action="'{{ route('candidatos.eliminar', '') }}/' + Datasource.candidatoId" id="formEliminarCandidato" ref="formEliminarCandidato"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input name="candidatoIdEliminar" type="hidden" v-model="Datasource.candidatoId"
+                                    id="inputUsuarioIdEliminar">
+                                <i class="icon-ol-eliminar"></i>
+                                <h3>Eliminar candidato</h3>
+                                <p>¿Estás seguro de eliminar el siguiente candidato?<br>Esta acción no se puede deshacer.</span></p>
+                                <div class="contenedor-input-datos">
+                                    <input :value="nombreCompleto" disabled id="inputNombreCandidatoEliminar">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @@click="cerrarModalEliminarCandidato" type="button"
+                                id="btnCancelarEliminar">Cancelar</button>
+                            <button type="submit" class="boton-cancelacion" form="formEliminarCandidato" @@click.prevent="onSubmit('formEliminarCandidato')"
+                                id="btnConfirmarEliminar">Eliminar</button>
+                        </div>
+                    </div>
+                    <div class="modal-background"></div>
+                </div>
+            </template>
+            <!-- FINALIZA MODAL ELIMINAR CANDIDATO -->
         </div>
     </div>
 </div>
@@ -252,7 +285,7 @@
     <div class="celda-acciones-gestor">
         @if (auth()->user()->superusuario)
             <a class="accionEditar" title="Editar">Editar</a>
-            <a title="Eliminar">Eliminar</a>
+            <a class="accionEliminar" title="Eliminar">Eliminar</a>
         @else
             <a>Permisos necesarios</a>
         @endif
@@ -306,6 +339,11 @@
                 allowResizing: false,
                 template: '#opcionesTemplate'
             }, ]
+        },
+        computed: {
+            nombreCompleto() {
+                return `${this.Datasource.nombreCandidato || ''} ${this.Datasource.apellidoPaterno || ''} ${this.Datasource.apellidoMaterno || ''}`.trim();
+            },
         },
         mounted() {
             this.cargaInicial();
@@ -411,6 +449,13 @@
             },
             cerrarModalEditarCandidato() {
                 this.modalEditarCandidato = false;
+            },
+            abrirModalEliminarCandidato(candidato) {
+                this.modalEliminarCandidato = true;
+                this.Datasource = candidato;
+            },
+            cerrarModalEliminarCandidato() {
+                this.modalEliminarCandidato = false;
             },
             onSubmit(formulario) {
                 // Capturar el formulario correcto basado en el parámetro
