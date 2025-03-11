@@ -286,12 +286,8 @@
 
 <script id="opcionesTemplate" type="text/x-template">
     <div class="celda-acciones-gestor">
-        @if (auth()->user()->superusuario)
             <a class="accionEditar" title="Editar">Editar</a>
             <a class="accionEliminar" title="Eliminar">Eliminar</a>
-        @else
-            <a>Permisos necesarios</a>
-        @endif
     </div>
 </script>
 <!-- VUE -->
@@ -310,28 +306,28 @@
             test: JSON.parse('{!! json_encode($candidatos) !!}'),
             columnas: [{
                 field: 'nombreCandidato',
+                textAlign: 'Left',
                 type: 'string',
-                textAling: 'Left',
                 headerText: 'Candidato',
-                required: true
+                requerido: true
             }, {
                 field: 'apellidoPaterno',
+                textAlign: 'Left',
                 type: 'string',
-                textAling: 'left',
                 headerText: 'Apellido Paterno',
-                required: true
-            },  {
+                requerido: true
+            }, {
                 field: 'apellidoMaterno',
+                textAlign: 'Left',
                 type: 'string',
-                textAling: 'left',
                 headerText: 'Apellido Materno',
-                required: true
-            },{
+                requerido: true
+            }, {
                 field: 'estatus',
+                textAlign: 'Left',
                 type: 'string',
-                textAling: 'left',
                 headerText: 'Estatus',
-                required: true
+                requerido: true
             }, {
                 headerText: 'Acciones',
                 width: 96,
