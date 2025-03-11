@@ -9,9 +9,20 @@
             <div class="opciones">
                 <button @@click="abrirModalAgregarCandidato()" class="boton-primario">Agregar Candidato</button>
             </div>
-            <div class="user-card">
-            </div>
         </div>
+        <form method="GET" class="filtros" id="formFiltros">
+            <div class="input-con-icono-contenedor">
+                <input style="height:20px;" type="text" placeholder="Buscar" class="input-con-icono-derecha" name="busqueda"
+                    value="{{ $filtros['busqueda'] ?? '' }}" id="inputBusquedaFiltros">
+                <span class="icono-input-derecha">
+                    <i class="icon-ol-buscar buscar" @@click="buscarCandidato" id="btnBuquedaCandidato"></i>
+                </span>
+            </div>
+            <button style="margin-left: 45px;" class="boton-primario" id="btnBuscarCandidato">Buscar</button>
+            <a href="{{ route('candidatos.listar') }}" class="boton boton-limpiar" id="btnLimpiarBusquedaCandidatos"><button
+                    class="boton-secundario" type="button">Limpiar</button>
+            </a>
+        </form>
         <div class="main-content">
             <div class="tabla-gestor">
                 <div id="dataGrid"></div>
@@ -281,7 +292,11 @@
                 const form = this.$refs[formulario];
 
                 form.submit();
-            }
+            },
+            buscarCandidato() {
+                this.$el.querySelector('form').submit();
+            },
+
         }
     });
     window.app = app;
