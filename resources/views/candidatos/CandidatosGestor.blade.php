@@ -282,7 +282,6 @@
                         <div class="header-modal">
                         </div>
                         <div class="encabezado">
-                            <i class="icon-ol-empresa logo"></i>
                             <label id="labelNombreCandidatoDetalle">@{{ nombreCompleto }}</label>
                             <div class="opciones">
                                 <template>
