@@ -315,18 +315,18 @@
                 headerText: 'Candidato',
                 required: true
             }, {
-                field: 'apellidoMaterno',
-                type: 'string',
-                textAling: 'left',
-                headerText: 'Apellido Materno',
-                required: true
-            }, {
                 field: 'apellidoPaterno',
                 type: 'string',
                 textAling: 'left',
                 headerText: 'Apellido Paterno',
                 required: true
-            }, {
+            },  {
+                field: 'apellidoMaterno',
+                type: 'string',
+                textAling: 'left',
+                headerText: 'Apellido Materno',
+                required: true
+            },{
                 field: 'estatus',
                 type: 'string',
                 textAling: 'left',
