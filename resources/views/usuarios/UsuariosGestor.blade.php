@@ -307,7 +307,7 @@
             cerrarModalAgregarUsuario() {
                 this.modalAgregarUsuario = false;
             },
-            abrirModalEditarUsuario(usuario, correo, nombreCompleto, ) {
+            abrirModalEditarUsuario(usuario) {
                 this.modalEditarUsuario = true;
                 this.Datasource = {
                     ...usuario
