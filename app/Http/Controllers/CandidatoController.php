@@ -158,10 +158,6 @@ class CandidatoController extends Controller
         // Buscar al candidato por su ID
         $candidato = Candidato::findOrFail($id);
 
-        $idsello = $request->query('idsello');
-        if (!$this->validarIdsello($id, $idsello)) {
-            return redirect()->route('candidatos.listar')->with('error', 'ACCESO NO AUTORIZADO');
-        }
 
         // Eliminar el candidato
         $candidato->delete();
