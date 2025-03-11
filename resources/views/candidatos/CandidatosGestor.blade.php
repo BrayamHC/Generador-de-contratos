@@ -443,9 +443,21 @@
                 this.$nextTick(() => {
                     this.renderearDatePicker();
                 });
+
+                // Asegurarse de que la fecha se muestre correctamente
+                if (candidato.fechaIngreso) {
+                    // Formateamos la fecha en formato 'Y-m-d'
+                    candidato.fechaIngreso = this.formatearFecha(candidato.fechaIngreso);
+                }
+
                 this.Datasource = {
                     ...candidato
                 }; // Aquí se usa el objeto recibido
+            },
+
+            formatearFecha(fecha) {
+                const date = new Date(fecha);
+                return date.toISOString().split('T')[0]; // Formato 'YYYY-MM-DD'
             },
             cerrarModalEditarCandidato() {
                 this.modalEditarCandidato = false;
