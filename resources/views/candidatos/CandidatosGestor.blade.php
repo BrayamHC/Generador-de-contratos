@@ -37,7 +37,7 @@
                         </div>
                         <div style="overflow: auto;" class="modal-body">
                             <form id="formAgregarCandidato" ref="formAgregarCandidato" action="{{ route(('candidatos.crear')) }}"
-                                method="POST" @@submit.prevent="onSubmit('formAgregarUsuario')">
+                                method="POST" @@submit.prevent="onSubmit('formAgregarCandidato')">
                                 @csrf
                                 <div style="text-align: left;">
                                     <label class="requerido" for="candidato">Nombre</label>
@@ -55,67 +55,67 @@
                                         id="inputAmAgregar" value="{{ old('apellidoPaterno') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="rfc">RFC</label>
+                                    <label for="rfc">RFC</label>
                                     <input type="text" name="rfc" placeholder="RFC"
                                         id="inputRfcAgregar" value="{{ old('rfc') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="curp">CURP</label>
+                                    <label for="curp">CURP</label>
                                     <input type="text" name="curp" placeholder="CURP"
                                         id="inputCurpAgregar" value="{{ old('curp') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="nss">NSS</label>
+                                    <label for="nss">NSS</label>
                                     <input type="text" name="nss" placeholder="NSS"
                                         id="inputNssAgregar" value="{{ old('nss') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="direccion1">Direccion 1</label>
+                                    <label for="direccion1">Direccion 1</label>
                                     <input type="text" name="direccion1" placeholder="Direccion 1"
                                         id="inputDunoAgregar" value="{{ old('direccion1') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="direccion2">Direccion 2</label>
+                                    <label for="direccion2">Direccion 2</label>
                                     <input type="text" name="direccion1" placeholder="Direccion 2"
                                         id="inputDireccionAgregar" value="{{ old('direccion2') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="estado">Estado</label>
+                                    <label for="estado">Estado</label>
                                     <input type="text" name="estado" placeholder="Estado"
                                         id="inputEstadoAgregar" value="{{ old('estado') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="ciudad">Ciudad</label>
+                                    <label for="ciudad">Ciudad</label>
                                     <input type="text" name="cuidad" placeholder="Ciudad"
                                         id="inputCiudadAgregar" value="{{ old('cuidad') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="CP">Código postal</label>
+                                    <label for="CP">Código postal</label>
                                     <input type="text" name="cp" placeholder="Código postal"
                                         id="inputCpAgregar" value="{{ old('cp') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="pais">País</label>
+                                    <label for="pais">País</label>
                                     <input type="text" name="cp" placeholder="País"
                                         id="inputCpAgregar" value="{{ old('pais') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="puesto">Puesto</label>
+                                    <label for="puesto">Puesto</label>
                                     <input type="text" name="puesto" placeholder="Puesto"
                                         id="inputPuestoAgregar" value="{{ old('puesto') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="salarioDiario">Salario diario</label>
+                                    <label for="salarioDiario">Salario diario</label>
                                     <input type="number" name="salarioDiario" placeholder="Salario diario"
                                         id="inputSalarioAgregar" value="{{ old('salarioDiario') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="fechaIngreso">Fecha de ingreso</label>
+                                    <label for="fechaIngreso">Fecha de ingreso</label>
                                     <input type="date" name="fechaIngreso" placeholder="Fecha de ingreso"
                                         id="dateIngreso" value="{{ old('fechaIngreso') }}" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="correoElectronico">Correo eléctronico</label>
+                                    <label for="correoElectronico">Correo eléctronico</label>
                                     <input type="email" name="correoElectronico" placeholder="Fecha de ingreso"
                                         id="inputCorreoAgregar" value="{{ old('correoElectronico') }}" />
                                 </div>
@@ -131,7 +131,117 @@
                     <div class="modal-background"></div>
                 </div>
             </template>
-            <!-- TERMINA MODAL AGREGAR USUARIO -->
+            <!-- TERMINA MODAL AGREGAR CANDIDATO -->
+            <!-- COMIENZA MODAL EDITAR CANDIDATO -->
+            <template>
+                <div v-if="modalEditarCandidato" class="modal" id="modalAgregarCandidato">
+                    <div class="modal-card" id="modalGenerar">
+                        <div class="modal-header">
+                            <label>Editar Candidato</label>
+                        </div>
+                        <div style="overflow: auto;" class="modal-body">
+                            <form id="formEditarCandidato" ref="formEditarCandidato" :action="'{{ route('candidatos.actualizar', '') }}/' + Datasource.candidatoId"
+                                method="POST" @@submit.prevent="onSubmit('formEditarCandidato')">
+                                @csrf
+                                @method('PATCH')
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="candidato">Nombre</label>
+                                    <input type="text" name="candidato" placeholder="Nombre" required
+                                        v-model="Datasource.nombreCandidato" id="inputCandidatoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoMaterno">Apellido Paterno</label>
+                                    <input type="text" name="apellidoMaterno" placeholder="Apellido Paterno" required
+                                        v-model="Datasource.apellidoMaterno" id="inputApAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoPaterno">Apellido Materno</label>
+                                    <input type="text" name="apellidoPaterno" placeholder="Apellido Materno" required
+                                        v-model="Datasource.apellidoPaterno" id="inputAmAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="estatus">Estatus</label>
+                                    <input disabled type="text" name="estatus" placeholder="Estatus"
+                                        v-model="Datasource.estatus" id="inputEstatusAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="rfc">RFC</label>
+                                    <input type="text" name="rfc" placeholder="RFC"
+                                        v-model="Datasource.rfc" id="inputRfcAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="curp">CURP</label>
+                                    <input type="text" name="curp" placeholder="CURP"
+                                        v-model="Datasource.curp" id="inputCurpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="nss">NSS</label>
+                                    <input type="text" name="nss" placeholder="NSS"
+                                        v-model="Datasource.nss" id="inputNssAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="direccion1">Direccion 1</label>
+                                    <input type="text" name="direccion1" placeholder="Direccion 1"
+                                        v-model="Datasource.direccion1" id="inputDunoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="direccion2">Direccion 2</label>
+                                    <input type="text" name="direccion1" placeholder="Direccion 2"
+                                        v-model="Datasource.direccion2" id="inputDireccionAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" name="estado" placeholder="Estado"
+                                        v-model="Datasource.estado" id="inputEstadoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" name="cuidad" placeholder="Ciudad"
+                                        v-model="Datasource.ciudad" id="inputCiudadAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="CP">Código postal</label>
+                                    <input type="text" name="cp" placeholder="Código postal"
+                                        v-model="Datasource.cp" id="inputCpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="pais">País</label>
+                                    <input type="text" name="cp" placeholder="País"
+                                        v-model="Datasource.pais" id="inputCpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="puesto">Puesto</label>
+                                    <input type="text" name="puesto" placeholder="Puesto"
+                                        v-model="Datasource.puesto" id="inputPuestoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="salarioDiario">Salario diario</label>
+                                    <input type="number" name="salarioDiario" placeholder="Salario diario"
+                                        v-model="Datasource.salarioDiario" id="inputSalarioAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="fechaIngreso">Fecha de ingreso</label>
+                                    <input type="date" name="fechaIngreso" placeholder="Fecha de ingreso"
+                                        v-model="Datasource.fechaIngreso" id="dateIngreso" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="correoElectronico">Correo eléctronico</label>
+                                    <input type="email" name="correoElectronico" placeholder="Fecha de ingreso"
+                                        v-model="Datasource.correoElectronico" id="inputCorreoAgregar" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @@click="cerrarModalEditarCandidato()" id="btnCancelarAgregar">Cancelar</button>
+                            <button type="submit" class="boton-primario" form="formAgregarCandidato"
+                                id="btnGuardarAgregar">Registrar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-background"></div>
+                </div>
+            </template>
+            <!-- TERMINA MODAL EDITAR CANDIDATO -->
         </div>
     </div>
 </div>
@@ -139,7 +249,7 @@
 <script id="opcionesTemplate" type="text/x-template">
     <div class="celda-acciones-gestor">
         @if (auth()->user()->superusuario)
-            <a title="Editar">Editar</a>
+            <a class="accionEditar" title="Editar">Editar</a>
             <a title="Eliminar">Eliminar</a>
         @else
             <a>Permisos necesarios</a>
@@ -153,7 +263,8 @@
         el: '#app',
         data: {
             usuarioLogueado: {},
-            Datasource: [],
+            Datasource: {},
+            candidatoObj: {},
             modalAgregarCandidato: false,
             modalEditarCandidato: false,
             modalEliminarCandidato: false,
@@ -241,12 +352,12 @@
                         if (args.target.classList.contains('accionEditar')) {
                             var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute(
                                 'data-uid'));
-                            this.abrirModalEditarUsuario(rowObj3.data);
+                            this.abrirModalEditarCandidato(rowObj3.data);
                         }
                         if (args.target.classList.contains('accionEliminar')) {
                             var rowObj3 = grid.getRowObjectFromUID(ej.base.closest(args.target, '.e-row').getAttribute(
                                 'data-uid'));
-                            this.abrirModalEliminarUsuario(rowObj3.data);
+                            this.abrirModalEliminarCandidato(rowObj3.data);
                         }
                     }
                 });
@@ -286,6 +397,18 @@
             },
             cerrarModalAgregarCandidato() {
                 this.modalAgregarCandidato = false;
+            },
+            abrirModalEditarCandidato(candidato) {
+                this.modalEditarCandidato = true;
+                this.$nextTick(() => {
+                    this.renderearDatePicker();
+                });
+                this.Datasource = {
+                    ...candidato
+                }; // Aquí se usa el objeto recibido
+            },
+            cerrarModalEditarCandidato() {
+                this.modalEditarCandidato = false;
             },
             onSubmit(formulario) {
                 // Capturar el formulario correcto basado en el parámetro
