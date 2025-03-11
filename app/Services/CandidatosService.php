@@ -23,7 +23,7 @@ class CandidatosService
             $candidatoObj->setNombreCandidato($candidato->nombre);
             $candidatoObj->setApellidoPaterno($candidato->apellido_paterno);
             $candidatoObj->setApellidoMaterno($candidato->apellido_materno);
-            $candidatoObj->setEstatus($candidato->estatus);
+            $candidatoObj->setEstatus($candidato->status);
             $candidatoObj->setRfc($candidato->rfc);
             $candidatoObj->setCurp($candidato->curp);
             $candidatoObj->setNss($candidato->nss);
