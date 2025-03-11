@@ -195,7 +195,7 @@ class CandidatoObj
         $this->nombreCandidato           = $datos->nombre_candidato;
         $this->apellidoMaterno           = $datos->apellido_materno;
         $this->apellidoPaterno           = $datos->apellido_paterno;
-        $this->estatus                   = $datos->estatus;
+        $this->estatus                   = $datos->status;
         $this->rfc                       = $datos->rfc;
         $this->curp                      = $datos->curp;
         $this->nss                       = $datos->nss;
