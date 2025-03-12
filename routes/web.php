@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CandidatoController;
+use App\Http\Controllers\EmpleadoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImpresionController;
 
@@ -37,7 +38,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Ruta para crear usuario
 Route::post('/usuarios', [UsuarioController::class, 'crear'])->middleware('auth')->name('usuarios.crear');
 //Ruta de vista de usuarios
-Route::get('/usuarios', [UsuarioController::class, 'listar'])->middleware('auth')->name('usuarios.listar');
+Route::get('/usuariosGestor', [UsuarioController::class, 'listar'])->middleware('auth')->name('usuarios.listar');
 //RUTA PARA VER USUARIO
 Route::get('/usuarios/editar/{id}', [UsuarioController::class, 'editar'])->middleware('auth')->name('usuarios.editar');
 //Ruta que manda para actualizar el usuario
@@ -49,7 +50,7 @@ Route::delete('/usuarios/{id}', [UsuarioController::class, 'eliminar'])->middlew
 //Ruta de vista de candidato
 Route::post('/candidatos', [CandidatoController::class, 'crear'])->middleware('auth')->name('candidatos.crear');
 //Ruta de crear candidato
-Route::get('/candidatos', [CandidatoController::class, 'listar'])->middleware('auth')->name('candidatos.listar');
+Route::get('/candidatosGestor', [CandidatoController::class, 'listar'])->middleware('auth')->name('candidatos.listar');
 //Ruta para ver candidato especifico
 Route::get('/candidatos/{id}', [CandidatoController::class, 'mostrar'])->middleware('auth')->name('candidatos.mostrar');
 //Ruta para ver editar candidato
@@ -63,3 +64,11 @@ Route::delete('/candidatos/{id}', [CandidatoController::class, 'eliminar'])->mid
 Route::get('/impresion/{id}', [ImpresionController::class, 'enviarImpresion'])->middleware('auth')->name('impresion.enviar');
 //Ruta de js
 Route::get('/impresion/descargar/{id}', [ImpresionController::class, 'descargarPdf']);
+
+//RUTAS DE EMPLEADOS
+Route::get('/empleadosGestor', [EmpleadoController::class, 'listar'])->middleware('auth')->name('empleados.listar');
+Route::post('/empleados', [EmpleadoController::class, 'crear'])->middleware('auth')->name('empleados.crear');
+Route::patch('/empleados/{id}', [EmpleadoController::class, 'actualizar'])->middleware('auth')->name('empleados.actualizar');
+Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminar'])->middleware('auth')->name('empleados.eliminar');
+
+
