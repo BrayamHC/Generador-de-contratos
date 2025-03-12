@@ -327,6 +327,36 @@
                 </div>
             </template>
             <!-- TERMINA MODAL VER EMPLEADO -->
+            <!-- COMIENZA MODAL ELIMINAR EMPLEADO -->
+            <template>
+                <div v-if="modalEliminarEmpleado" class="modal" id="modalEditarEmpleado">
+                    <div class="modal-card modal-eliminar">
+                        <div class="modal-body">
+                            <form :action="'{{ route('empleados.eliminar', '') }}/' + Datasource.empleadoId" id="formEliminarEmpleado" ref="formEliminarEmpleado"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input name="empleadoIdEliminar" type="hidden" v-model="Datasource.empleadoId"
+                                    id="inputUsuarioIdEliminar">
+                                <i class="icon-ol-eliminar"></i>
+                                <h3>Eliminar candidato</h3>
+                                <p>¿Estás seguro de eliminar el siguiente candidato?<br>Esta acción no se puede deshacer.</span></p>
+                                <div class="contenedor-input-datos">
+                                    <input :value="nombreCompleto" disabled id="inputNombreEmpleadoEliminar">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @@click="cerrarModalEliminarEmpleado" type="button"
+                                id="btnCancelarEliminar">Cancelar</button>
+                            <button type="submit" class="boton-cancelacion" form="formEliminarEmpleado" @@click.prevent="onSubmit('formEliminarEmpleado')"
+                                id="btnConfirmarEliminar">Eliminar</button>
+                        </div>
+                    </div>
+                    <div class="modal-background"></div>
+                </div>
+            </template>
+            <!-- TERMINA MODAL ELIMINAR EMPLEADO -->
         </div>
     </div>
 </div>
@@ -528,6 +558,13 @@
             },
             cerrarModalDetalleEmpleado() {
                 this.modalDetalleEmpleado = false;
+            },
+            abrirModalEliminarEmpleado(empleado) {
+                this.modalEliminarEmpleado = true;
+                this.Datasource = empleado;
+            },
+            cerrarModalEliminarEmpleado() {
+                this.modalEliminarEmpleado = false;
             },
             onSubmit(formulario) {
                 // Capturar el formulario correcto basado en el parámetro
