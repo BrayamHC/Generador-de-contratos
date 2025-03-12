@@ -40,7 +40,7 @@
                                 method="POST" @@submit.prevent="onSubmit('formAgregarEmpleado')">
                                 @csrf
                                 <div style="text-align: left;">
-                                    <label class="requerido" for="candidato">Nombre</label>
+                                    <label class="requerido" for="empleado">Nombre</label>
                                     <input type="text" name="nombre" placeholder="Nombre" required
                                         id="inputEmpleadoAgregar" />
                                 </div>
@@ -131,7 +131,7 @@
                     <div class="modal-background"></div>
                 </div>
             </template>
-            <!-- TERMINA MODAL AGREGAR CANDIDATO -->
+            <!-- TERMINA MODAL AGREGAR EMPLEADO -->
             <!-- COMIENZA MODAL EDITAR EMPLEADO -->
             <template>
                 <div v-if="modalEditarEmpleado" class="modal" id="modalEditarEmpleado">
@@ -239,7 +239,94 @@
                     <div class="modal-background"></div>
                 </div>
             </template>
-            <!-- TERMINA MODAL EDITAR CANDIDATO -->
+            <!-- TERMINA MODAL EDITAR EMPLEADO -->
+            <!-- INICIA MODAL VER EMPLEADO -->
+            <template>
+                <div v-if="modalDetalleEmpleado" class="modal modal-detalle" id="modalDetalleEmpleado">
+                    <div class="modal-card modal-detalle">
+                        <div class="header-modal">
+                        </div>
+                        <div class="encabezado">
+                            <label id="labelNombreEmpleadoDetalle">@{{ nombreCompleto }}</label>
+                            <div class="opciones">
+                            </div>
+                        </div>
+                        <div class="datos-generales">
+                            <label class="titulo"> Datos del empleado </label>
+                            <table class="tabla-detalle">
+                                <tbody>
+                                    <tr>
+                                        <td class="w30p">Nombre</td>
+                                        <td id="labelNombreTablaDetalle">@{{ Datasource.nombreEmpleado }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Apellido Paterno</td>
+                                        <td id="labelApDetalle">@{{ Datasource.apellidoPaterno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Apellido Materno</td>
+                                        <td id="labelApDetalle">@{{ Datasource.apellidoMaterno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Status</td>
+                                        <td id="labelEstatusDetalle">@{{ Datasource.estatus }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">RFC</td>
+                                        <td id="labelRfcDetalle">@{{ Datasource.rfc }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">CURP</td>
+                                        <td id="labelCurpDetalle">@{{ Datasource.curp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">NSS</td>
+                                        <td id="labelNssDetalle">@{{ Datasource.curp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Dirección 1</td>
+                                        <td id="labelDirDetalle">@{{ Datasource.direccion1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Dirección 2</td>
+                                        <td id="labelDireccionDetalle">@{{ Datasource.direccion2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Estado</td>
+                                        <td id="labelEstadoDetalle">@{{ Datasource.estado }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Ciudad</td>
+                                        <td id="labelCiudadDetalle">@{{ Datasource.ciudad }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Código postal</td>
+                                        <td id="labelCpDetalle">@{{ Datasource.cp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">País</td>
+                                        <td id="labelPaisDetalle">@{{ Datasource.pais }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Salario diario</td>
+                                        <td id="labelSalarioDetalle">@{{ Datasource.salarioDiario }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Fecha ingreso</td>
+                                        <td id="labelFechaIngresoDetalle">@{{ Datasource.fechaIngreso }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Correo eléctronico</td>
+                                        <td id="labelCorreoDetalle">@{{ Datasource.correoElectronico }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-background" @@click="cerrarModalDetalleEmpleado"></div>
+                </div>
+            </template>
+            <!-- TERMINA MODAL VER EMPLEADO -->
         </div>
     </div>
 </div>
@@ -250,7 +337,13 @@
             <a class="accionEliminar" title="Eliminar">Eliminar</a>
     </div>
 </script>
-
+@verbatim
+<script type="text/x-jsrender" id="link-detalle">
+    <a href="javascript:void(0);" class="link-detalle">
+    @{{ Datasource.nombreEmpleado }
+    </a>
+</script>
+@endverbatim
 <!-- VUE -->
 
 <script>
@@ -264,6 +357,7 @@
             modalAgregarEmpleado: false,
             modalEditarEmpleado: false,
             modalEliminarEmpleado: false,
+            modalDetalleEmpleado: false,
             test: JSON.parse('{!! json_encode($empleados) !!}'),
             //Columnas
             columnas: [{
@@ -360,7 +454,7 @@
                         } else if (args.target.classList.contains('accionEliminar')) {
                             this.abrirModalEliminarEmpleado(rowObj3.data);
                         } else if (args.target.classList.contains('link-detalle') || args.target.classList.contains('link-detalle')) {
-                            this.abrirModalDetallEmpleado(rowObj3.data);
+                            this.abrirModalDetalleEmpleado(rowObj3.data);
                         }
                     }
 
@@ -422,6 +516,18 @@
             },
             cerrarModalEditarEmpleado() {
                 this.modalEditarEmpleado = false;
+            },
+            abrirModalDetalleEmpleado(empleado) {
+                this.modalDetalleEmpleado = true;
+                this.Datasource = empleado;
+                // Asegurarse de que la fecha se muestre correctamente
+                if (empleado.fechaIngreso) {
+                    // Formateamos la fecha en formato 'Y-m-d'
+                    empleado.fechaIngreso = this.formatearFecha(empleado.fechaIngreso);
+                }
+            },
+            cerrarModalDetalleEmpleado() {
+                this.modalDetalleEmpleado = false;
             },
             onSubmit(formulario) {
                 // Capturar el formulario correcto basado en el parámetro
