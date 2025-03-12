@@ -1186,7 +1186,6 @@ i.buscar {
 /************************ CONTENIDO ************************/
 .contenido {
     flex-grow: 1;
-    overflow-y: auto;
 }
 
 .layout {
@@ -1224,7 +1223,6 @@ i.buscar {
     display: flex;
     justify-content: center;
     height: calc(100% - 56px);
-    overflow-y: auto;
 }
 
 .app .contenido.header-sidebar {
@@ -1234,8 +1232,6 @@ i.buscar {
     height: calc(100% - 58px);
     width: 100%;
 
-    overflow-x: auto;
-    overflow-y: auto;
 }
 
 .app .contenido.header-sidebar .tabla-gestor {
