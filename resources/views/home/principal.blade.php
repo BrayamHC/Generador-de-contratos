@@ -17,7 +17,7 @@
             <div class="accesos">
                 <div class="botones">
                     <div class="botones-row">
-                        <a href="/despacho/empresas" id="btnRH">
+                        <a href="/empleadosGestor" id="btnRH">
                             <div class="boton">
                                 <i class="icon-profile"
                                     alt="RH"></i>
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="/candidatos" id="btnReclutamiento">
+                        <a href="/candidatosGestor" id="btnReclutamiento">
                             <div class="boton">
                                 <i class="icon-user-plus" alt="Reclutamiento"></i>
                                 <div class="descripcion">
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="/despacho/reportes" id="btnDocumentos">
+                        <a href="/contratosGestor" id="btnDocumentos">
                             <div class="boton">
                                 <i class="icon-profile"
                                     alt="Contratos"></i>
@@ -48,7 +48,7 @@
                         </a>
                     </div>
                     <div class="botones-row">
-                        <a href="/despacho/cedulas" id="btnFinanzas">
+                        <a href="/finanzasGestor" id="btnFinanzas">
                             <div class="boton">
                                 <i class="icon-coin-dollar" alt="Finanzas"></i>
                                 <div class="descripcion">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a id="btnTareas">
+                        <a href="proyectosGestor" id="btnProyectos">
                             <div class="boton">
                                 <i class="icon-list-numbered"
                                     alt="Tareas"></i>
@@ -67,13 +67,13 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="/usuarios" id="btnAjustes">
+                        <a href="/usuariosGestor" id="btnUsuarios">
                             <div class="boton">
                                 <i class="icon-cogs"
                                     alt="Configuracion"></i>
                                 <div class="descripcion">
-                                    <span class="titulo">Configuración</span>
-                                    <span class="nombre">Edita los datos generales, usuarios y perfiles.</span>
+                                    <span class="titulo">Usuarios</span>
+                                    <span class="nombre">Administra usuarios y perfiles.</span>
                                 </div>
                             </div>
                         </a>
