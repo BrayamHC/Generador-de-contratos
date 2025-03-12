@@ -83,4 +83,27 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            usuarioLogueado: {},
+            showDropdownSesion: false,
+            showDropdown: false,
+        },
+        mounted() {
+            this.obtenerUsuarioLogueado();
+        },
+        methods: {
+            mostrarDropdownSesion() {
+                this.showDropdownSesion = !this.showDropdownSesion;
+            },
+            toggleDropdown() {
+                this.showDropdown = !this.showDropdown;
+            },
+        }
+    });
+</script>
 @endsection
