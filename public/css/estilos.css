@@ -7,8 +7,8 @@
 }
 
 :root {
-    --color-primario: #00968f;
-    --color-secundario: #00c2b9;
+    --color-primario: #6b0606;
+    --color-secundario: #f52929;
 }
 
 *:focus-visible {
@@ -786,7 +786,7 @@ progress.rojo::-webkit-progress-value {
 
 .e-grid .e-pager .e-currentitem,
 .e-grid .e-pager .e-currentitem:focus {
-    background-color: var(--color-primario);
+    background-color: #721c24;
     color: #fff !important;
 }
 
