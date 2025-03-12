@@ -110,7 +110,7 @@
                                         id="inputSalarioAgregar" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label for="fechaIngreso">Fecha de ingreso</label>
+                                    <label for="fechaIngreso">Fecha de contratación</label>
                                     <input type="date" name="fecha_ingreso" placeholder="Fecha de ingreso"
                                         id="dateIngreso" />
                                 </div>
@@ -218,7 +218,7 @@
                                         :value="formatearSalario(Datasource.salarioDiario)" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label for="fechaIngreso">Fecha de ingreso</label>
+                                    <label for="fechaIngreso">Fecha de contratación</label>
                                     <input type="date" name="fecha_ingreso" placeholder="Fecha de ingreso"
                                         v-model="Datasource.fechaIngreso" id="dateIngreso" />
                                 </div>
@@ -312,7 +312,7 @@
                                         <td id="labelSalarioDetalle">@{{ Datasource.salarioDiario }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="w30p">Fecha ingreso</td>
+                                        <td class="w30p">Fecha de contratación</td>
                                         <td id="labelFechaIngresoDetalle">@{{ Datasource.fechaIngreso }}</td>
                                     </tr>
                                     <tr>
