@@ -7,8 +7,8 @@
                     <strong>Usuario:</strong> {{ auth()->user()->usuario }}
                 </div>
                 <button type="button" onclick="location.href='/principal'">Home</button>
-                <button type="button" onclick="location.href='/usuarios'">Usuarios</button>
-                <button type="button" onclick="location.href='/candidatos'">Candidatos</button>
+                <button type="button" onclick="location.href='/usuariosGestor'">Usuarios</button>
+                <button type="button" onclick="location.href='/candidatosGestor'">Candidatos</button>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" id="logout-button">Cerrar sesión</button>
