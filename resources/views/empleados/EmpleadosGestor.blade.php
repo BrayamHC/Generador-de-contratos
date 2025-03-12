@@ -132,6 +132,114 @@
                 </div>
             </template>
             <!-- TERMINA MODAL AGREGAR CANDIDATO -->
+            <!-- COMIENZA MODAL EDITAR EMPLEADO -->
+            <template>
+                <div v-if="modalEditarEmpleado" class="modal" id="modalEditarEmpleado">
+                    <div class="modal-card" id="modalGenerar">
+                        <div class="modal-header">
+                            <label>Editar Empleado</label>
+                        </div>
+                        <div style="overflow: auto;" class="modal-body">
+                            <form :action="'{{ route('empleados.actualizar', '') }}/' + Datasource.empleadoId" id="formEditarEmpleado"
+                                ref="formEditarEmpleado" method="POST" @@submit.prevent="onSubmit('formEditarEmpleado')">
+                                @csrf
+                                @method('PATCH')
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="empleado">Nombre</label>
+                                    <input type="text" name="nombre" placeholder="Nombre" required
+                                        v-model="Datasource.nombreEmpleado" id="inputEmpleadoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoPaterno">Apellido Paterno</label>
+                                    <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" required
+                                        v-model="Datasource.apellidoPaterno" id="inputApAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoPaterno">Apellido Materno</label>
+                                    <input type="text" name="apellido_materno" placeholder="Apellido Materno" required
+                                        v-model="Datasource.apellidoMaterno" id="inputAmAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="rfc">RFC</label>
+                                    <input type="text" name="rfc" placeholder="RFC"
+                                        v-model="Datasource.rfc" id="inputRfcAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="curp">CURP</label>
+                                    <input type="text" name="curp" placeholder="CURP"
+                                        v-model="Datasource.curp" id="inputCurpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="nss">NSS</label>
+                                    <input type="text" name="nss" placeholder="NSS"
+                                        v-model="Datasource.nss" id="inputNssAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="direccion1">Direccion 1</label>
+                                    <input type="text" name="direccion1" placeholder="Direccion 1"
+                                        v-model="Datasource.direccion1" id="inputDunoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="direccion2">Direccion 2</label>
+                                    <input type="text" name="direccion2" placeholder="Direccion 2"
+                                        v-model="Datasource.direccion2" id="inputDireccionAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" name="estado" placeholder="Estado"
+                                        v-model="Datasource.estado" id="inputEstadoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" name="ciudad" placeholder="Ciudad"
+                                        v-model="Datasource.ciudad" id="inputCiudadAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="CP">Código postal</label>
+                                    <input type="text" name="cp" placeholder="Código postal"
+                                        v-model="Datasource.cp" id="inputCpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="pais">País</label>
+                                    <input type="text" name="pais" placeholder="País"
+                                        v-model="Datasource.pais" id="inputCpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="puesto">Puesto</label>
+                                    <input type="text" name="puesto" placeholder="Puesto"
+                                        v-model="Datasource.puesto" id="inputPuestoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="salarioDiario">Salario diario</label>
+                                    <input type="text" name="salario_diario" placeholder="Salario diario"
+                                        v-model="Datasource.salarioDiario"
+                                        id="inputSalarioAgregar"
+                                        @input="actualizarSalario"
+                                        :value="formatearSalario(Datasource.salarioDiario)" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="fechaIngreso">Fecha de ingreso</label>
+                                    <input type="date" name="fecha_ingreso" placeholder="Fecha de ingreso"
+                                        v-model="Datasource.fechaIngreso" id="dateIngreso" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="correoElectronico">Correo eléctronico</label>
+                                    <input type="email" name="correo_electronico" placeholder="Fecha de ingreso"
+                                        v-model="Datasource.correoElectronico" id="inputCorreoAgregar" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @@click="cerrarModalEditarEmpleado()" id="btnCancelarAgregar">Cancelar</button>
+                            <button type="submit" class="boton-primario" form="formEditarEmpleado"
+                                id="btnGuardarAgregar">Registrar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-background"></div>
+                </div>
+            </template>
+            <!-- TERMINA MODAL EDITAR CANDIDATO -->
         </div>
     </div>
 </div>
@@ -313,7 +421,7 @@
                 }; // Aquí se usa el objeto recibido
             },
             cerrarModalEditarEmpleado() {
-                this.modalEditarCandidato = false;
+                this.modalEditarEmpleado = false;
             },
             onSubmit(formulario) {
                 // Capturar el formulario correcto basado en el parámetro
@@ -325,6 +433,24 @@
                 const date = new Date(fecha);
                 return date.toISOString().split('T')[0]; // Formato 'YYYY-MM-DD'
             },
+            // Formatea el salario a formato monetario
+            formatearSalario(salario) {
+                if (!salario) return ''; // Si no hay valor, retorna vacío
+                return salario.toLocaleString('es-MX', {
+                    style: 'currency',
+                    currency: 'MXN'
+                });
+            },
+
+            // Elimina los caracteres no numéricos al guardar el valor
+            quitarFormatoSalario(salario) {
+                return salario.replace(/[^0-9.-]+/g, ''); // Elimina cualquier cosa que no sea número o punto
+            },
+
+            // Método de cuando el valor cambia en el input
+            actualizarSalario() {
+                this.Datasource.salarioDiario = this.quitarFormatoSalario(this.Datasource.salarioDiario);
+            }
 
         }
     });
