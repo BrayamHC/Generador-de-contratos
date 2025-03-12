@@ -397,6 +397,8 @@
             modalEditarCandidato: false,
             modalEliminarCandidato: false,
             modalDetalleCandidato: false,
+            showDropdownSesion: false,
+            showDropdown: false,
             test: JSON.parse('{!! json_encode($candidatos) !!}'),
             columnas: [{
                 field: 'nombreCandidato',
@@ -604,6 +606,12 @@
             // Método de cuando el valor cambia en el input
             actualizarSalario() {
                 this.Datasource.salarioDiario = this.quitarFormatoSalario(this.Datasource.salarioDiario);
+            },
+            mostrarDropdownSesion() {
+                this.showDropdownSesion = !this.showDropdownSesion;
+            },
+            toggleDropdown() {
+                this.showDropdown = !this.showDropdown;
             }
         }
     });
