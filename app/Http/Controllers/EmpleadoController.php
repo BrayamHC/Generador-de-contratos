@@ -1,0 +1,173 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Empleado;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Services\EmpleadoService;
+
+
+class EmpleadoController extends Controller
+{
+
+    public function crear(Request $request)
+    {
+        // Validación de los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:50',
+            'apellido_paterno' => 'required|string|max:50',
+            'apellido_materno' => 'required|string|max:50',
+            'rfc' => 'nullable|string|max:13',
+            'curp' => 'nullable|string|max:18',
+            'nss' => 'nullable|string|max:11',
+            'direccion1' => 'nullable|string|max:50',
+            'direccion2' => 'nullable|string|max:50',
+            'estado' => 'nullable|string|max:50',
+            'ciudad' => 'nullable|string|max:50',
+            'cp' => 'nullable|integer',
+            'pais' => 'nullable|string|max:50',
+            'puesto' => 'nullable|string|max:50',
+            'salario_diario' => 'nullable|numeric',
+            'fecha_ingreso' => 'nullable|date',
+            'correo_electronico' => 'nullable|string|max:50|unique:candidatos',
+        ]);
+
+        // Verificar si la validación falla
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        // Recolectar todos los campos del formulario
+        $campos = $request->only([
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
+            'rfc',
+            'curp',
+            'nss',
+            'direccion1',
+            'direccion2',
+            'estado',
+            'ciudad',
+            'cp',
+            'pais',
+            'puesto',
+            'salario_diario',
+            'fecha_ingreso',
+            'correo_electronico'
+        ]);
+
+        // Verificar si alguno de los campos está vacío
+        $camposCompletos = !in_array(null, $campos) && !in_array('', $campos);
+
+        // Asignar el estatus
+        $status = $camposCompletos ? 'completo' : 'en proceso';
+
+        // Crear un nuevo candidato con los datos validados
+        Empleado::create([
+            'nombre' => $request->nombre,
+            'apellido_paterno' => $request->apellido_paterno,
+            'apellido_materno' => $request->apellido_materno,
+            'rfc' => $request->rfc,
+            'curp' => $request->curp,
+            'nss' => $request->nss,
+            'direccion1' => $request->direccion1,
+            'direccion2' => $request->direccion2,
+            'estado' => $request->estado,
+            'ciudad' => $request->ciudad,
+            'cp' => $request->cp,
+            'pais' => $request->pais,
+            'puesto' => $request->puesto,
+            'salario_diario' => $request->salario_diario,
+            'fecha_ingreso' => $request->fecha_ingreso,
+            'correo_electronico' => $request->correo_electronico,
+            'status' => $status,  // Asignar el estatus aquí
+        ]);
+
+        // Redirigir con mensaje de éxito
+        return redirect()->route('empleados.listar')->with('success', 'Empleado registrado con éxito.');
+    }
+
+
+    public function actualizar(Request $request, $id)
+    {
+        // Validación de los datos de entrada
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellido_paterno' => 'required|string|max:255',
+            'apellido_materno' => 'required|string|max:255',
+            'rfc' => 'nullable|string|max:255',
+            'curp' => 'nullable|string|max:255',
+            'nss' => 'nullable|string|max:11',
+            'direccion1' => 'nullable|string|max:255',
+            'direccion2' => 'nullable|string|max:255',
+            'estado' => 'nullable|string|max:255',
+            'ciudad' => 'nullable|string|max:255',
+            'cp' => 'nullable|string|max:255',
+            'pais' => 'nullable|string|max:255',
+            'puesto' => 'nullable|string|max:255',
+            'salario_diario' => 'nullable|numeric',
+            'fecha_ingreso' => 'nullable|date',
+            'correo_electronico' => 'nullable|email|max:255',
+        ]);
+
+        // Buscar al candidato por ID
+        $empleado = Empleado::findOrFail($id);
+
+        // Obtener todos los campos del formulario
+        $campos = $request->only([
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
+            'rfc',
+            'curp',
+            'nss',
+            'direccion1',
+            'direccion2',
+            'estado',
+            'ciudad',
+            'cp',
+            'pais',
+            'puesto',
+            'salario_diario',
+            'fecha_ingreso',
+            'correo_electronico'
+        ]);
+
+        // Verificar si alguno de los campos está vacío
+        $camposCompletos = !in_array(null, $campos) && !in_array('', $campos);
+
+        // Asignar el estatus según si todos los campos están llenos o no
+        $status = $camposCompletos ? 'completo' : 'en proceso';
+
+        // Actualizar los datos del candidato, incluyendo el nuevo estatus
+        $empleado->fill(array_merge($campos, ['status' => $status]));
+        $empleado->save();
+
+        // Redirigir con mensaje de éxito
+        return redirect()->route('empleados.listar')->with('success', 'Empleado actualizado exitosamente');
+    }
+
+
+    public function eliminar(Request $request, $id)
+    {
+
+        // Buscar al candidato por su ID
+        $empleado = Empleado::findOrFail($id);
+
+
+        // Eliminar el candidato
+        $empleado->delete();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('empleados.listar')->with('success', 'Empleados eliminado exitosamente');
+    }
+
+
+    public function listar()
+    {
+        $empleados = EmpleadoService::listar(true);
+        return view('/empleados.EmpleadosGestor', compact('empleados'));
+    }
+}
