@@ -200,6 +200,8 @@
             modalAgregarUsuario: false,
             modalEditarUsuario: false,
             modalEliminarUsuario: false,
+            showDropdownSesion: false,
+            showDropdown: false,
             test: JSON.parse('{!! json_encode($usuarios) !!}'),
             accion: 'Agregar',
             columnas: [{
@@ -331,7 +333,13 @@
             buscarUsuario() {
                 this.$el.querySelector('form').submit();
             },
-        }
+            mostrarDropdownSesion() {
+                this.showDropdownSesion = !this.showDropdownSesion;
+            },
+            toggleDropdown() {
+                this.showDropdown = !this.showDropdown;
+            }
+        },
 
     });
     window.app = app;
