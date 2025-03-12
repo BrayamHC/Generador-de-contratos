@@ -7,7 +7,7 @@
         <div class="encabezado">
             <span class="titulo" id="tituloModulo">Empleados</span>
             <div class="opciones">
-                <button class="boton-primario">Agregar Empleado</button>
+                <button @@click="abrirModalAgregarEmpleado()" class="boton-primario">Agregar Empleado</button>
             </div>
         </div>
         <form method="GET" class="filtros" id="formFiltros">
@@ -27,10 +27,121 @@
             <div class="tabla-gestor">
                 <div id="dataGrid"></div>
             </div>
+            <!-- MODALES -->
+            <!-- COMIENZA MODAL AGREGAR EMPLEADO -->
+            <template>
+                <div v-if="modalAgregarEmpleado" class="modal" id="modalAgregarEmpleado">
+                    <div class="modal-card" id="modalGenerar">
+                        <div class="modal-header">
+                            <label>Agregar Empleado</label>
+                        </div>
+                        <div style="overflow: auto;" class="modal-body">
+                            <form id="formAgregarEmpleado" ref="formAgregarEmpleado" action="{{ route(('empleados.crear')) }}"
+                                method="POST" @@submit.prevent="onSubmit('formAgregarEmpleado')">
+                                @csrf
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="candidato">Nombre</label>
+                                    <input type="text" name="nombre" placeholder="Nombre" required
+                                        id="inputEmpleadoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoMaterno">Apellido Paterno</label>
+                                    <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" required
+                                        id="inputApAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label class="requerido" for="apellidoPaterno">Apellido Materno</label>
+                                    <input type="text" name="apellido_materno" placeholder="Apellido Materno" required
+                                        id="inputAmAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="rfc">RFC</label>
+                                    <input type="text" name="rfc" placeholder="RFC"
+                                        id="inputRfcAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="curp">CURP</label>
+                                    <input type="text" name="curp" placeholder="CURP"
+                                        id="inputCurpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="nss">NSS</label>
+                                    <input type="text" name="nss" placeholder="NSS"
+                                        id="inputNssAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="direccion1">Direccion 1</label>
+                                    <input type="text" name="direccion1" placeholder="Direccion 1"
+                                        id="inputDunoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="direccion2">Direccion 2</label>
+                                    <input type="text" name="direccion2" placeholder="Direccion 2"
+                                        id="inputDireccionAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" name="estado" placeholder="Estado"
+                                        id="inputEstadoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="ciudad">Ciudad</label>
+                                    <input type="text" name="ciudad" placeholder="Ciudad"
+                                        id="inputCiudadAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="CP">Código postal</label>
+                                    <input type="text" name="cp" placeholder="Código postal"
+                                        id="inputCpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="pais">País</label>
+                                    <input type="text" name="pais" placeholder="País"
+                                        id="inputCpAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="puesto">Puesto</label>
+                                    <input type="text" name="puesto" placeholder="Puesto"
+                                        id="inputPuestoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="salarioDiario">Salario diario</label>
+                                    <input type="number" name="salario_diario" placeholder="Salario diario"
+                                        id="inputSalarioAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="fechaIngreso">Fecha de ingreso</label>
+                                    <input type="date" name="fecha_ingreso" placeholder="Fecha de ingreso"
+                                        id="dateIngreso" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="correoElectronico">Correo eléctronico</label>
+                                    <input type="email" name="correo_electronico" placeholder="Fecha de ingreso"
+                                        id="inputCorreoAgregar" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button @@click="cerrarModalAgregarEmpleado()" id="btnCancelarAgregar">Cancelar</button>
+                            <button type="submit" class="boton-primario" form="formAgregarEmpleado"
+                                id="btnGuardarAgregar">Registrar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-background"></div>
+                </div>
+            </template>
+            <!-- TERMINA MODAL AGREGAR CANDIDATO -->
         </div>
     </div>
 </div>
 
+<script id="opcionesTemplate" type="text/x-template">
+    <div class="celda-acciones-gestor">
+            <a class="accionEditar" title="Editar">Editar</a>
+            <a class="accionEliminar" title="Eliminar">Eliminar</a>
+    </div>
+</script>
 
 <!-- VUE -->
 
@@ -174,6 +285,45 @@
 
                 // Renderiza el DatePicker para la fecha inicial
                 datepicker.appendTo('#dateIngreso');
+            },
+
+            abrirModalAgregarEmpleado() {
+                this.modalAgregarEmpleado = true;
+                this.$nextTick(() => {
+                    this.renderearDatePicker();
+                });
+            },
+            cerrarModalAgregarEmpleado() {
+                this.modalAgregarEmpleado = false;
+            },
+            abrirModalEditarEmpleado(empleado) {
+                this.modalEditarEmpleado = true;
+                this.$nextTick(() => {
+                    this.renderearDatePicker();
+                });
+
+                // Asegurarse de que la fecha se muestre correctamente
+                if (empleado.fechaIngreso) {
+                    // Formateamos la fecha en formato 'Y-m-d'
+                    empleado.fechaIngreso = this.formatearFecha(empleado.fechaIngreso);
+                }
+
+                this.Datasource = {
+                    ...empleado
+                }; // Aquí se usa el objeto recibido
+            },
+            cerrarModalEditarEmpleado() {
+                this.modalEditarCandidato = false;
+            },
+            onSubmit(formulario) {
+                // Capturar el formulario correcto basado en el parámetro
+                const form = this.$refs[formulario];
+
+                form.submit();
+            },
+            formatearFecha(fecha) {
+                const date = new Date(fecha);
+                return date.toISOString().split('T')[0]; // Formato 'YYYY-MM-DD'
             },
 
         }
