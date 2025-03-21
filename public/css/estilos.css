@@ -1264,7 +1264,7 @@ i.buscar {
     background-color: #f8f9fb;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding-inline: 35px;
     padding-block: 12px;
     border-bottom: 1px solid #dee1e6;
@@ -3289,7 +3289,7 @@ body {
 
 .user-info {
     font-size: 14px;
-    color: #555;
+    color: #fcfcfc;
     margin-bottom: 20px;
     text-align: center;
 }
