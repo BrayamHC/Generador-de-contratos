@@ -3,9 +3,12 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CandidatoController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\EmpleadoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImpresionController;
+use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\VacacionesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -72,3 +75,16 @@ Route::patch('/empleados/{id}', [EmpleadoController::class, 'actualizar'])->midd
 Route::delete('/empleados/{id}', [EmpleadoController::class, 'eliminar'])->middleware('auth')->name('empleados.eliminar');
 
 
+//RUTAS PROYECTOS
+
+Route::get('/proyectosGestor', [ProyectoController::class, 'listar'])->middleware('auth')->name('proyectos.listar');
+
+
+//RUTAS CONTRATOS
+
+Route::get('/contratosGestor', [ContratoController::class, 'listar'])->middleware('auth')->name('contratos.listar');
+
+
+//RUTAS VACACIONES
+
+Route::get('/vacacionesGestor', [VacacionesController::class, 'listar'])->middleware('auth')->name('vacaciones.listar');
