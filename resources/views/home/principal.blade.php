@@ -48,12 +48,12 @@
                         </a>
                     </div>
                     <div class="botones-row">
-                        <a href="/finanzasGestor" id="btnFinanzas">
+                        <a href="/vacacionesGestor" id="btnFinanzas">
                             <div class="boton">
                                 <i class="icon-coin-dollar" alt="Finanzas"></i>
                                 <div class="descripcion">
-                                    <span class="titulo">Finanzas</span>
-                                    <span class="nombre">Supervisa ingresos, egresos y reportes financieros.</span>
+                                    <span class="titulo">Vacaciones</span>
+                                    <span class="nombre">Asigna vacaciones a tus empleados.</span>
                                 </div>
                             </div>
                         </a>
@@ -92,9 +92,6 @@
             usuarioLogueado: {},
             showDropdownSesion: false,
             showDropdown: false,
-        },
-        mounted() {
-            this.obtenerUsuarioLogueado();
         },
         methods: {
             mostrarDropdownSesion() {
