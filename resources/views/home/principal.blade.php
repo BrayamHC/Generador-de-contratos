@@ -53,7 +53,7 @@
                                 <i class="icon-coin-dollar" alt="Finanzas"></i>
                                 <div class="descripcion">
                                     <span class="titulo">Vacaciones</span>
-                                    <span class="nombre">Asigna vacaciones a tus empleados.</span>
+                                    <span class="nombre">Gestiona y asigna fácilmente las vacaciones de tu equipo.</span>
                                 </div>
                             </div>
                         </a>
