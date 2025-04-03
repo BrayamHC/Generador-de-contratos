@@ -1040,7 +1040,7 @@ i.buscar {
 
 .sidebar {
     flex-shrink: 0;
-    width: 56px;
+    width: 50px;
     padding-inline: 8px;
     padding-block: 16px;
     display: flex;
@@ -1058,7 +1058,7 @@ i.buscar {
     padding-inline: 4px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 35px;
 }
 
 .sidebar .boton {
