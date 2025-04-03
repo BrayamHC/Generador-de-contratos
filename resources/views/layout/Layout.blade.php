@@ -17,8 +17,16 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es-es.js"></script>
 
+    <script src="{{ config('js/bootstrap.js') }}"></script>
+    <script src="{{ config('js/croppie.js') }}"></script>
+
     <!-- ESTILOS -->
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('ico/outline/outline.css') }}" />
+    <link rel="stylesheet" href="{{ config('css/normalizacion.css') }}" />
+
+
 
     {{-- VERIFICADOR DE CONTRASEÑAS --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
@@ -29,6 +37,44 @@
     <main class="contenido-general">
         @yield('contenido')
     </main>
+    <script>
+        var tooltipHome = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        var tooltipUsuarios = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        var tooltipCandidatos = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        var tooltipRH = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        var tooltipProyectos = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        var tooltipContratos = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        var tooltipVacaciones = new ej.popups.Tooltip({
+            position: 'RightCenter',
+            showTipPointer: false,
+        });
+        tooltipHome.appendTo('#homeMenu');
+        tooltipUsuarios.appendTo('#homeUsuarios');
+        tooltipCandidatos.appendTo('#homeCandidatos');
+        tooltipRH.appendTo('#homeRH');
+        tooltipProyectos.appendTo('#homeProyectos');
+        tooltipContratos.appendTo('#homeContratos');
+        tooltipVacaciones.appendTo('#homeVacaciones');
+    </script>
+
 </body>
 
 </html>
