@@ -1,0 +1,201 @@
+@font-face {
+  font-family: 'dataxtractor-iconos';
+  src:  url('fonts/dataxtractor-iconos.eot?ed7tv9');
+  src:  url('fonts/dataxtractor-iconos.eot?ed7tv9#iefix') format('embedded-opentype'),
+    url('fonts/dataxtractor-iconos.ttf?ed7tv9') format('truetype'),
+    url('fonts/dataxtractor-iconos.woff?ed7tv9') format('woff'),
+    url('fonts/dataxtractor-iconos.svg?ed7tv9#dataxtractor-iconos') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-ol-"], [class*=" icon-ol-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'dataxtractor-iconos' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ol-info-filled:before {
+  content: "\e939";
+}
+.icon-ol-administrador:before {
+  content: "\e938";
+}
+.icon-ol-confirmar-filled:before {
+  content: "\e936";
+}
+.icon-ol-cancelar-filled:before {
+  content: "\e937";
+}
+.icon-ol-visualizacion-abierta:before {
+  content: "\e934";
+}
+.icon-ol-visualizacion-cerrada:before {
+  content: "\e935";
+}
+.icon-ol-usuarios-filled:before {
+  content: "\e92a";
+}
+.icon-ol-usuario-filled:before {
+  content: "\e92b";
+}
+.icon-ol-salir-filled:before {
+  content: "\e92c";
+}
+.icon-ol-reportes-filled:before {
+  content: "\e92d";
+}
+.icon-ol-inicio-filled:before {
+  content: "\e92e";
+}
+.icon-ol-empresa-filled:before {
+  content: "\e92f";
+}
+.icon-ol-despachos-filled:before {
+  content: "\e930";
+}
+.icon-ol-dashboard-filled:before {
+  content: "\e931";
+}
+.icon-ol-cedulas-filled:before {
+  content: "\e932";
+}
+.icon-ol-carpeta-zip-filled:before {
+  content: "\e933";
+}
+.icon-ol-usuarios:before {
+  content: "\e900";
+}
+.icon-ol-usuario:before {
+  content: "\e901";
+}
+.icon-ol-subir:before {
+  content: "\e902";
+}
+.icon-ol-salir:before {
+  content: "\e903";
+}
+.icon-ol-reportes:before {
+  content: "\e904";
+}
+.icon-ol-realizar:before {
+  content: "\e905";
+}
+.icon-ol-quitar:before {
+  content: "\e906";
+}
+.icon-ol-puntos-vertical:before {
+  content: "\e907";
+}
+.icon-ol-puntos:before {
+  content: "\e908";
+}
+.icon-ol-pin:before {
+  content: "\e909";
+}
+.icon-ol-perfi-acceso:before {
+  content: "\e90a";
+}
+.icon-ol-ir:before {
+  content: "\e90b";
+}
+.icon-ol-inicio:before {
+  content: "\e90c";
+}
+.icon-ol-info:before {
+  content: "\e90d";
+}
+.icon-ol-empresa:before {
+  content: "\e90e";
+}
+.icon-ol-eliminar:before {
+  content: "\e90f";
+}
+.icon-ol-editar:before {
+  content: "\e910";
+}
+.icon-ol-documento:before {
+  content: "\e911";
+}
+.icon-ol-despachos:before {
+  content: "\e912";
+}
+.icon-ol-descargar:before {
+  content: "\e913";
+}
+.icon-ol-descarga-masiva:before {
+  content: "\e914";
+}
+.icon-ol-desactivar:before {
+  content: "\e915";
+}
+.icon-ol-dashboard:before {
+  content: "\e916";
+}
+.icon-ol-correo:before {
+  content: "\e917";
+}
+.icon-ol-copiar:before {
+  content: "\e918";
+}
+.icon-ol-contrasena:before {
+  content: "\e919";
+}
+.icon-ol-confirmar:before {
+  content: "\e91a";
+}
+.icon-ol-configuracion:before {
+  content: "\e91b";
+}
+.icon-ol-cerrar:before {
+  content: "\e91c";
+}
+.icon-ol-cedulas:before {
+  content: "\e91d";
+}
+.icon-ol-carpeta-zip:before {
+  content: "\e91e";
+}
+.icon-ol-carpeta:before {
+  content: "\e91f";
+}
+.icon-ol-candado:before {
+  content: "\e920";
+}
+.icon-ol-cancelar:before {
+  content: "\e921";
+}
+.icon-ol-calendario:before {
+  content: "\e922";
+}
+.icon-ol-buscar:before {
+  content: "\e923";
+}
+.icon-ol-angulo-izquierdo:before {
+  content: "\e924";
+}
+.icon-ol-angulo-derecho:before {
+  content: "\e925";
+}
+.icon-ol-angulo-arriba:before {
+  content: "\e926";
+}
+.icon-ol-angulo-abajo:before {
+  content: "\e927";
+}
+.icon-ol-agregar:before {
+  content: "\e928";
+}
+.icon-ol-advertencia:before {
+  content: "\e929";
+}
