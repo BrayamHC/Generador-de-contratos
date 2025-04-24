@@ -3281,7 +3281,7 @@ body {
 
 .logo {
     display: block;
-    margin: 10px auto 20px;
+    margin: 10px;
     max-width: 150px;
     height: auto;
 }

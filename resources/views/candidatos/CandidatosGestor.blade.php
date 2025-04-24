@@ -280,8 +280,12 @@
                 <div v-if="modalDetalleCandidato" class="modal modal-detalle" id="modalDetalleCandidato">
                     <div class="modal-card modal-detalle">
                         <div class="header-modal">
+                            <i @@click="cerrarModalDetalleCandidato" class="icon-ol-cerrar"
+                            id="btnCerrarModalDetalleCandidato">
+                            </i>
                         </div>
                         <div class="encabezado">
+                            <i class="icon-ol-usuarios logo"></i>
                             <label id="labelNombreCandidatoDetalle">@{{ nombreCompleto }}</label>
                             <div class="opciones">
                                 <template>
