@@ -2776,7 +2776,6 @@ select {
     position: relative;
     /* Añadido */
     width: 72px;
-    height: 72px;
     display: flex;
 }
 

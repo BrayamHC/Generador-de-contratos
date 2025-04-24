@@ -2,11 +2,11 @@
     <div v-if="showDropdown" class="overlay" @@click="toggleDropdown"></div>
     <div v-if="showDropdownSesion" class="overlay" @@click="mostrarDropdownSesion"></div>
     <div class="empresas" id="selectEmpresasHeader">
-        <div class="perfil" id=" btnDropdownSesionHeader">
+        {{-- <div class="perfil" id=" btnDropdownSesionHeader">
             <i class="icon-ol-usuario-filled usuario" v-if="usuarioLogueado.urlImagen == ''"></i>
             <div class="nombre">
             </div>
-        </div>
+        </div> --}}
         <div class="perfil" @@click="mostrarDropdownSesion" id="btnDropdownSesionHeader">
             <img>
             <div class="nombre">
@@ -20,9 +20,9 @@
                     <span id="nomreUsuarioLogueadoHeader"> {{ auth()->user()->usuario }}
                     </span>
                 </div>
-                <div class="opcion" id="btnPerfilHeader">
+                <div @click="window.location='{{ route('usuario.perfil') }}'" class="opcion" id="btnPerfilHeader">
                     <i class="icon-ol-usuario"></i>
-                    <a><span>Perfil</span></a>
+                    <span>Perfil</span>
                 </div>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

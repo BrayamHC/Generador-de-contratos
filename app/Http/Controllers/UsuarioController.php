@@ -102,4 +102,10 @@ class UsuarioController extends Controller
         // Redirigir con un mensaje de éxito
         return redirect()->route('usuarios.listar')->with('success', 'Usuario eliminado exitosamente');
     }
+
+    public function perfilUsuario()
+    {
+        $usuarioLogeado = Auth::user();
+        return view('/usuarios.UsuariosPerfil', compact('usuarioLogeado'));
+    }
 }

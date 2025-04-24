@@ -49,6 +49,10 @@ Route::patch('/usuarios/{id}', [UsuarioController::class, 'actualizar'])->middle
 //Ruta para eliminar usuario
 Route::delete('/usuarios/{id}', [UsuarioController::class, 'eliminar'])->middleware('auth')->name('usuarios.eliminar');
 
+Route::get('/usuarios', [UsuarioController::class, 'perfilUsuario'])->middleware('auth')->name('usuario.perfil');
+
+
+
 //RUTAS DE CANDIDATO
 //Ruta de vista de candidato
 Route::post('/candidatos', [CandidatoController::class, 'crear'])->middleware('auth')->name('candidatos.crear');
