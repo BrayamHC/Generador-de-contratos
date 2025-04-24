@@ -285,7 +285,8 @@
                             <label id="labelNombreCandidatoDetalle">@{{ nombreCompleto }}</label>
                             <div class="opciones">
                                 <template>
-                                    <i class="icon-ol-editar opcion" @@click="editarEnModal"
+                                    <i class="icon-ol-documento" id="opcImprimirContrato" v-if="Datasource.estatus === 'COMPLETO'"></i>
+                                        <i class="icon-ol-editar opcion" @@click="editarEnModal"
                                         id="opcEditarEmpresa"></i>
                                     <i class="icon-ol-eliminar" @@click="editarEnModal"
                                         id="opcEliminarEmpresa"></i>
