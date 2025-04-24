@@ -62,7 +62,7 @@ class CandidatoController extends Controller
         $camposCompletos = !in_array(null, $campos) && !in_array('', $campos);
 
         // Asignar el estatus
-        $status = $camposCompletos ? 'completo' : 'en proceso';
+        $status = $camposCompletos ? 'COMPLETO' : 'EN PROCESO';
 
         // Crear un nuevo candidato con los datos validados
         Candidato::create([
@@ -141,7 +141,7 @@ class CandidatoController extends Controller
         $camposCompletos = !in_array(null, $campos) && !in_array('', $campos);
 
         // Asignar el estatus según si todos los campos están llenos o no
-        $status = $camposCompletos ? 'completo' : 'en proceso';
+        $status = $camposCompletos ? 'COMPLETO' : 'EN PROCESO';
 
         // Actualizar los datos del candidato, incluyendo el nuevo estatus
         $candidato->fill(array_merge($campos, ['status' => $status]));

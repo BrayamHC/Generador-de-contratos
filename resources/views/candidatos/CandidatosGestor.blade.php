@@ -66,7 +66,7 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="nss">NSS</label>
-                                    <input type="text" name="nss" placeholder="NSS"
+                                    <input type="text" name="nss" placeholder="NSS" maxlength="11"
                                         id="inputNssAgregar" />
                                 </div>
                                 <div style="text-align: left;">
@@ -134,7 +134,7 @@
             <!-- TERMINA MODAL AGREGAR CANDIDATO -->
             <!-- COMIENZA MODAL EDITAR CANDIDATO -->
             <template>
-                <div v-if="modalEditarCandidato" class="modal" id="modalAgregarCandidato">
+                <div v-if="modalEditarCandidato" class="modal" id="modalEditarCandidato">
                     <div class="modal-card" id="modalGenerar">
                         <div class="modal-header">
                             <label>Editar Candidato</label>
@@ -160,11 +160,6 @@
                                         v-model="Datasource.apellidoPaterno" id="inputAmAgregar" />
                                 </div>
                                 <div style="text-align: left;">
-                                    <label for="estatus">Estatus</label>
-                                    <input disabled type="text" name="estatus" placeholder="Estatus"
-                                        v-model="Datasource.estatus" id="inputEstatusAgregar" />
-                                </div>
-                                <div style="text-align: left;">
                                     <label for="rfc">RFC</label>
                                     <input type="text" name="rfc" placeholder="RFC"
                                         v-model="Datasource.rfc" id="inputRfcAgregar" />
@@ -176,7 +171,7 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="nss">NSS</label>
-                                    <input type="text" name="nss" placeholder="NSS"
+                                    <input type="text" name="nss" placeholder="NSS" maxlength="11"
                                         v-model="Datasource.nss" id="inputNssAgregar" />
                                 </div>
                                 <div style="text-align: left;">
@@ -229,8 +224,13 @@
                                 </div>
                                 <div style="text-align: left;">
                                     <label for="correoElectronico">Correo eléctronico</label>
-                                    <input type="email" name="correo_electronico" placeholder="Fecha de ingreso"
+                                    <input type="email" name="correo_electronico" placeholder="Correo eléctronico"
                                         v-model="Datasource.correoElectronico" id="inputCorreoAgregar" />
+                                </div>
+                                <div style="text-align: left;">
+                                    <label for="estatus">Estatus</label>
+                                    <input disabled type="text" name="estatus" placeholder="Estatus"
+                                        v-model="Datasource.estatus" id="inputEstatusAgregar" />
                                 </div>
                             </form>
                         </div>
@@ -285,9 +285,9 @@
                             <label id="labelNombreCandidatoDetalle">@{{ nombreCompleto }}</label>
                             <div class="opciones">
                                 <template>
-                                    <i class="icon-ol-editar opcion" @@click="modalEditarCandidato = true"
+                                    <i class="icon-ol-editar opcion" @@click="editarEnModal"
                                         id="opcEditarEmpresa"></i>
-                                    <i class="icon-ol-eliminar" @@click="modalEliminarCandidato = true"
+                                    <i class="icon-ol-eliminar" @@click="editarEnModal"
                                         id="opcEliminarEmpresa"></i>
                                 </template>
                             </div>
@@ -307,10 +307,6 @@
                                     <tr>
                                         <td class="w30p">Apellido Materno</td>
                                         <td id="labelApDetalle">@{{ Datasource.apellidoMaterno }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="w30p">Status</td>
-                                        <td id="labelEstatusDetalle">@{{ Datasource.estatus }}</td>
                                     </tr>
                                     <tr>
                                         <td class="w30p">RFC</td>
@@ -359,6 +355,10 @@
                                     <tr>
                                         <td class="w30p">Correo eléctronico</td>
                                         <td id="labelCorreoDetalle">@{{ Datasource.correoElectronico }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="w30p">Status</td>
+                                        <td id="labelEstatusDetalle">@{{ Datasource.estatus }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -503,6 +503,13 @@
 
                 // Se agrega datagrid
                 grid.appendTo('#dataGrid');
+            },
+            editarEnModal(){
+                this.modalEditarCandidato = true;
+                this.$nextTick(() => {
+                    this.renderearDatePicker();
+                });
+                // Asegurarse de que la fecha se muestre correctamente
             },
             renderearDatePicker() {
                 var _this = this; // Guardar el contexto de 'this' para usar dentro de las funciones
