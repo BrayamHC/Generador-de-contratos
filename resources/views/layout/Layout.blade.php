@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('ico/outline/outline.css') }}" />
-    <link rel="stylesheet" href="{{ config('css/normalizacion.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/normalizacion.css') }}" />
 
 
 
