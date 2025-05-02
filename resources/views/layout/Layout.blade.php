@@ -17,8 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/locale/es-es.js"></script>
 
-    <script src="{{ config('js/bootstrap.js') }}"></script>
-    <script src="{{ config('js/croppie.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('js/croppie.js') }}"></script>
 
     <!-- ESTILOS -->
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}" />
