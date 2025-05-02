@@ -56,15 +56,39 @@
                                     <input type="text" name="nombre_completo" placeholder="Nombre completo" required
                                         id="inputNombreAgregar" value="{{ old('nombre_completo') }}" />
                                 </div>
-                                <div style="text-align: left;">
-                                    <label class="requerido" for="password">Contraseña</label>
-                                    <input type="password" name="password" placeholder="Contraseña" required
-                                        id="inputContraseñaAgregar" />
-                                </div>
-                                <div style="text-align: left;">
-                                    <label class="requerido" for="password_confirmation">Confirmar contraseña</label>
-                                    <input type="password" name="password_confirmation" placeholder="Confirmar contraseña" required
-                                        id="inputConfContraseñaAgregar" />
+                                <div class="input-password">
+                                    <div>
+                                        <label class="requerido">Contraseña </label>
+                                        <label class="generar-password" @@click="generarPassword"
+                                            id="btnGenerarPassword">Generar y copiar</label>
+                                    </div>
+                                    <div class="input-con-icono derecha">
+                                        <input :type="verPassword ? 'text' : 'password'" name="password"
+                                            placeholder="Contraseña" required maxlength="25"
+                                            @@input="validarPassword" v-model="password"
+                                            onkeypress="noSpaces(event)" id="inputPasswordAgregar" />
+                                        <i class="icon-ol-visualizacion-cerrada copiar puntero-cursor"
+                                            @@click="verPassword = !verPassword" v-if="!verPassword"
+                                            id="btnVerPasswordAgregar"></i>
+                                        <i class="icon-ol-visualizacion-abierta copiar puntero-cursor"
+                                            @@click="verPassword = !verPassword" v-else
+                                            id="btnOcultarPasswordAgregar"></i>
+                                    </div>
+                                    <div class="validar-password">
+                                        <div class="progreso">
+                                            <progress :value="seguridad" :class="colorSeguridad" max="100"
+                                                id="progressAgregar"></progress>
+                                            <label> Seguridad</label>
+                                        </div>
+                                        <div class="validaciones">
+                                            <div v-for="(rule, index) in reglas" :key="index">
+                                                <i :class="{ 'icon-ol-confirmar-filled verde': rule
+                                                    .valid, 'icon-ol-cancelar-filled rojo': !rule.valid }"
+                                                    :id="'validacion-' + index"></i>
+                                                <label>@{{ rule.message }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div style="text-align: left;">
                                     <label class="requerido" for="superusuario">SuperUsuario</label>
@@ -241,7 +265,36 @@
                     allowResizing: false,
                     template: '#opcionesTemplate'
                 },
+
             ],
+            password: '',
+            passwordStrength: {
+            score: 0
+            },
+            reglas: [{
+                valid: false,
+                message: '8 Caracteres como mínimo'
+                },
+                {
+                valid: false,
+                message: 'Al menos una letra mayúscula'
+                },
+                {
+                valid: false,
+                message: 'Al menos una letra minúscula'
+                },
+                {
+                valid: false,
+                message: 'Al menos un número'
+                },
+                {
+                valid: false,
+                message: 'Al menos un caracter especial'
+                }
+            ],
+            verPassword: '',
+            seguridad: 0,
+            colorSeguridad: '',
         },
         mounted() {
             this.cargaInicial();
@@ -304,6 +357,8 @@
             },
             abrirModalAgregarUsuario() {
                 this.modalAgregarUsuario = true;
+                this.password = '';
+                this.validarPassword();
             },
             cerrarModalAgregarUsuario() {
                 this.modalAgregarUsuario = false;
@@ -338,7 +393,39 @@
             },
             toggleDropdown() {
                 this.showDropdown = !this.showDropdown;
+            },
+            validarPassword() {
+              // Usar zxcvbn para evaluar la fortaleza de la contraseña
+            this.passwordStrength = zxcvbn(this.password);
+
+              // Actualizar las reglas de validación
+            this.reglas[0].valid = this.password.length >= 8;
+            this.reglas[1].valid = /[A-Z]/.test(this.password);
+            this.reglas[2].valid = /[a-z]/.test(this.password);
+            this.reglas[3].valid = /\d/.test(this.password);
+            this.reglas[4].valid = /[!@#$%^&*(),.?":{}|<>/]/.test(this.password);
+
+            if (this.passwordStrength.score == 0 || this.passwordStrength.score == 1) {
+                this.seguridad = 33;
+                this.colorSeguridad = 'rojo';
+            } else if (this.passwordStrength.score == 2 || this.passwordStrength.score == 3) {
+                this.seguridad = 66;
+                this.colorSeguridad = 'amarillo';
+            } else if (this.passwordStrength.score == 4) {
+                this.seguridad = 100;
+                this.colorSeguridad = 'verde';
             }
+            if (this.password == '') {
+                this.seguridad = 0;
+            }
+
+            console.log(!this.reglas.every(rule => rule.valid) || (this.seguridad < 50));
+            },
+            generarPassword() {
+            this.password = generarPasswordSegura(12);
+            this.validarPassword();
+            //navigator.clipboard.writeText(this.password);
+            },
         },
 
     });
