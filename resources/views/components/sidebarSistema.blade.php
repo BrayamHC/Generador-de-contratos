@@ -1,9 +1,11 @@
         <!-- Barra lateral -->
         <div class="sidebar">
-            <img src="{{ asset('images/User.png') }}" alt="Logo" class="logo">
+            <div class="logo">
+                <img src="{{ asset('images/User.png') }}" alt="Logo" class="logo">
+            </div>
             <div class="menus">
                 <div id="homeMenu" title="Home">
-                    <a href="{{ route('principal') }}">
+                    <a href="{{ route('principal') }}" style="display: block; text-decoration: none;">
                         <i class="icon-ol-inicio"></i>
                     </a>
                 </div>
